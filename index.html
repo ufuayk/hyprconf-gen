@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hyprconf-gen</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.png">
+</head>
+<body>
+    <header>
+        <h1>hyprconf-gen (early dev)</h1>
+    </header>
+
+    <div class="main-layout">
+        <nav id="sidebar">
+            <h2>Categories</h2>
+            <ul>
+                <li data-category="general" class="active">General & Appearance</li>
+                <li data-category="monitors">Monitors</li>
+                <li data-category="input">Input Devices</li>
+                <li data-category="keybinds">Keybinds</li>
+                <li data-category="windowrules">Window Rules</li>
+                <li data-category="autostart">Autostart (exec-once)</li>
+                <li data-category="animations">Animations</li>
+                <li data-category="decoration">Decoration</li>
+                <li data-category="layouts">Layouts</li>
+                <li data-category="misc">Miscellaneous</li>
+            </ul>
+        </nav>
+
+        <main id="main-content">
+            <div id="settings-forms">
+                <div id="form-general" class="settings-form active-form">
+                    <h3>General Settings</h3>
+                    <div class="form-group">
+                        <label for="general-border_size">Border Size:</label>
+                         <div class="form-input-wrapper">
+                            <input type="number" id="general-border_size" data-config-key="general.border_size" min="0">
+                            <span>Window border thickness (px).</span>
+                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="general-gaps_in">Gaps In:</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="general-gaps_in" data-config-key="general.gaps_in" min="0">
+                            <span>Inner gaps between windows (px).</span>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="general-gaps_out">Gaps Out:</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="general-gaps_out" data-config-key="general.gaps_out">
+                            <span>Outer gaps to monitor edges (px, can be negative).</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="general-col_active_border">Active Border Color:</label>
+                        <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                            <input type="color" id="general-col_active_border" data-config-key="general.col.active_border">
+                            <input type="text" class="color-text-display" data-config-key="general.col.active_border" placeholder="rgba(...) or gradient...">
+                         </div>
+                         <span>Can be single color (rgba/rgb hex) or gradient. Picker only shows first color. Use text field for gradients.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="general-col_inactive_border">Inactive Border Color:</label>
+                        <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                            <input type="color" id="general-col_inactive_border" data-config-key="general.col.inactive_border">
+                            <input type="text" class="color-text-display" data-config-key="general.col.inactive_border" placeholder="rgba(...)">
+                         </div>
+                         <span>Usually a single rgba/rgb hex color.</span>
+                    </div>
+                     <div class="form-group">
+                        <label for="general-layout">Default Layout:</label>
+                         <div class="form-input-wrapper">
+                            <select id="general-layout" data-config-key="general.layout">
+                                <option value="dwindle">Dwindle</option>
+                                <option value="master">Master</option>
+                            </select>
+                            <span>Default tiling layout.</span>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="general-resize_on_border">Resize on Border:</label>
+                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                             <input type="checkbox" id="general-resize_on_border" data-config-key="general.resize_on_border">
+                             <label for="general-resize_on_border">Enable resizing by dragging borders/gaps.</label>
+                         </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="general-allow_tearing">Allow Tearing:</label>
+                        <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                             <input type="checkbox" id="general-allow_tearing" data-config-key="general.allow_tearing">
+                             <label for="general-allow_tearing">Allow screen tearing (see wiki first).</label>
+                         </div>
+                    </div>
+                </div>
+
+                <div id="form-monitors" class="settings-form">
+                    <h3>Monitor Configuration</h3>
+                    <p>Define your monitor setup. Leave Name blank for any. Use `preferred` for resolution/refresh rate to use native mode. Scale `auto` usually means 1.</p>
+                    <div id="monitor-list">
+                    </div>
+                    <button type="button" id="add-monitor-btn">Add Monitor</button>
+                </div>
+
+                 <div id="form-input" class="settings-form">
+                    <h3>Input Devices</h3>
+                    <p>Configure keyboard, mouse, and touchpad settings.</p>
+                    <h4>Keyboard</h4>
+                     <div class="form-group">
+                         <label for="input-kb_layout">Layout:</label>
+                         <div class="form-input-wrapper">
+                             <input type="text" id="input-kb_layout" data-config-key="input.kb_layout" placeholder="us">
+                             <span>e.g., us, gb, de</span>
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label for="input-kb_variant">Variant:</label>
+                         <div class="form-input-wrapper"> <input type="text" id="input-kb_variant" data-config-key="input.kb_variant" placeholder=""> </div>
+                     </div>
+                     <div class="form-group">
+                         <label for="input-kb_options">Options:</label>
+                          <div class="form-input-wrapper">
+                            <input type="text" id="input-kb_options" data-config-key="input.kb_options" placeholder="caps:escape">
+                            <span>Comma-separated list, e.g., grp:alt_shift_toggle,caps:escape</span>
+                          </div>
+                     </div>
+                     <div class="form-group">
+                         <label for="input-kb_rules">Rules:</label>
+                          <div class="form-input-wrapper"> <input type="text" id="input-kb_rules" data-config-key="input.kb_rules" placeholder=""> </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="input-numlock_by_default">Numlock On:</label>
+                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                            <input type="checkbox" id="input-numlock_by_default" data-config-key="input.numlock_by_default">
+                            <label for="input-numlock_by_default">Enable numlock on startup.</label>
+                         </div>
+                    </div>
+                    <h4>Mouse</h4>
+                    <div class="form-group">
+                        <label for="input-follow_mouse">Follow Mouse Focus:</label>
+                         <div class="form-input-wrapper">
+                            <select id="input-follow_mouse" data-config-key="input.follow_mouse">
+                                <option value="0">Disabled</option>
+                                <option value="1">Enabled (Focus follows mouse)</option>
+                                <option value="2">Full (Focus + Raise follows mouse)</option>
+                                <option value="3">Loose (Focus follows mouse loosely)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-sensitivity">Sensitivity:</label>
+                         <div class="form-input-wrapper">
+                            <input type="number" id="input-sensitivity" data-config-key="input.sensitivity" step="0.1" min="-1" max="1">
+                            <span>Mouse sensitivity (-1.0 to 1.0, 0 = default).</span>
+                        </div>
+                    </div>
+                    <h4>Touchpad</h4>
+                     <div class="form-group">
+                        <label for="input-touchpad-natural_scroll">Natural Scroll:</label>
+                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                            <input type="checkbox" id="input-touchpad-natural_scroll" data-config-key="input.touchpad.natural_scroll">
+                            <label for="input-touchpad-natural_scroll">Enable natural (reverse) scrolling.</label>
+                         </div>
+                    </div>
+                </div>
+
+                <div id="form-keybinds" class="settings-form">
+                    <h3>Keybinds</h3>
+                    <p>Define your keyboard and mouse shortcuts. Use `$mainMod` for your primary modifier (usually Super/Win key). Specify mouse buttons like `mouse:272` (left), `mouse:273` (right), `mouse:274` (middle).</p>
+                    <div id="keybind-list"></div>
+                    <button type="button" id="add-keybind-btn">Add Keybind</button>
+                </div>
+
+                 <div id="form-windowrules" class="settings-form">
+                    <h3>Window Rules</h3>
+                    <p>Define rules for specific windows based on class, title, etc. Use RegEx for matching (e.g., `class:^(kitty)$`).</p>
+                    <div id="windowrule-list"></div>
+                    <button type="button" id="add-windowrule-btn">Add Window Rule</button>
+                </div>
+
+                <div id="form-autostart" class="settings-form">
+                    <h3>Autostart Programs (exec-once)</h3>
+                    <p>Commands to run once when Hyprland starts. Add `&` at the end for background processes.</p>
+                    <div id="autostart-list"></div>
+                    <button type="button" id="add-autostart-btn">Add Command</button>
+                </div>
+
+                 <div id="form-animations" class="settings-form">
+                    <h3>Animations</h3>
+                     <div class="form-group">
+                         <label for="animations-enabled">Enable Animations:</label>
+                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                             <input type="checkbox" id="animations-enabled" data-config-key="animations.enabled">
+                             <label for="animations-enabled">Globally enable/disable animations.</label>
+                          </div>
+                     </div>
+                     <h4>Define Bezier Curves</h4>
+                     <p>Define custom bezier curve names for use in assignments.</p>
+                     <div id="bezier-list"></div>
+                     <button type="button" id="add-bezier-btn">Add Bezier Curve</button>
+
+                     <h4>Assign Animation Styles</h4>
+                      <p>Assign specific animation styles, speeds, and curves to different elements.</p>
+                     <div id="animation-assignment-list"></div>
+                     <button type="button" id="add-animation-assignment-btn">Add Animation Assignment</button>
+                </div>
+
+                 <div id="form-decoration" class="settings-form">
+                    <h3>Decoration</h3>
+                     <div class="form-group">
+                        <label for="decoration-rounding">Rounding:</label>
+                         <div class="form-input-wrapper">
+                            <input type="number" id="decoration-rounding" data-config-key="decoration.rounding" min="0">
+                            <span>Window corner rounding radius (px).</span>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="decoration-active_opacity">Active Opacity:</label>
+                         <div class="form-input-wrapper">
+                            <input type="number" id="decoration-active_opacity" data-config-key="decoration.active_opacity" min="0" max="1" step="0.05">
+                            <span>Opacity for the active window (0.0 - 1.0).</span>
+                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-inactive_opacity">Inactive Opacity:</label>
+                         <div class="form-input-wrapper">
+                            <input type="number" id="decoration-inactive_opacity" data-config-key="decoration.inactive_opacity" min="0" max="1" step="0.05">
+                            <span>Opacity for inactive windows (0.0 - 1.0).</span>
+                         </div>
+                    </div>
+                    <h4>Blur</h4>
+                     <div class="form-group">
+                         <label for="decoration-blur-enabled">Enable Blur:</label>
+                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                             <input type="checkbox" id="decoration-blur-enabled" data-config-key="decoration.blur.enabled">
+                             <label for="decoration-blur-enabled">Enable background blur for transparent windows.</label>
+                         </div>
+                     </div>
+                      <div class="form-group">
+                        <label for="decoration-blur-size">Blur Size:</label>
+                         <div class="form-input-wrapper">
+                            <input type="number" id="decoration-blur-size" data-config-key="decoration.blur.size" min="1">
+                            <span>Blur kernel size.</span>
+                         </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="decoration-blur-passes">Blur Passes:</label>
+                         <div class="form-input-wrapper">
+                            <input type="number" id="decoration-blur-passes" data-config-key="decoration.blur.passes" min="1">
+                            <span>Number of blur passes (more passes = smoother but slower).</span>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="decoration-blur-vibrancy">Vibrancy:</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-blur-vibrancy" data-config-key="decoration.blur.vibrancy" min="0" max="1" step="0.01">
+                             <span>Increase saturation of blurred areas (0.0 - 1.0).</span>
+                        </div>
+                    </div>
+                    <h4>Shadow</h4>
+                     <div class="form-group">
+                         <label for="decoration-shadow-enabled">Enable Shadow:</label>
+                          <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                             <input type="checkbox" id="decoration-shadow-enabled" data-config-key="decoration.shadow.enabled">
+                             <label for="decoration-shadow-enabled">Enable window drop shadows.</label>
+                         </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="decoration-shadow-range">Shadow Range:</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-shadow-range" data-config-key="decoration.shadow.range" min="0">
+                             <span>Shadow size/spread (px).</span>
+                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-shadow-render_power">Render Power:</label>
+                        <div class="form-input-wrapper">
+                             <input type="number" id="decoration-shadow-render_power" data-config-key="decoration.shadow.render_power" min="1" max="4">
+                             <span>Shadow quality (1=low, 4=high). Higher uses more GPU.</span>
+                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-shadow-color">Shadow Color:</label>
+                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                            <input type="color" id="decoration-shadow-color" data-config-key="decoration.shadow.color">
+                            <input type="text" class="color-text-display" data-config-key="decoration.shadow.color" placeholder="rgba(...)">
+                         </div>
+                        <span>Shadow color including alpha (e.g., `rgba(000000aa)`).</span>
+                    </div>
+                </div>
+
+                <div id="form-layouts" class="settings-form">
+                    <h3>Layout Specific Settings</h3>
+                    <p>These settings only apply if the corresponding layout (Dwindle/Master) is selected in General Settings.</p>
+                    <h4>Dwindle Layout</h4>
+                    <div class="form-group">
+                        <label for="dwindle-pseudotile">Pseudotile:</label>
+                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                            <input type="checkbox" id="dwindle-pseudotile" data-config-key="dwindle.pseudotile">
+                            <label for="dwindle-pseudotile">Master window is always split.</label>
+                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dwindle-preserve_split">Preserve Split:</label>
+                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                            <input type="checkbox" id="dwindle-preserve_split" data-config-key="dwindle.preserve_split">
+                            <label for="dwindle-preserve_split">Maintain split ratio when window closes.</label>
+                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dwindle-force_split">Force Split:</label>
+                        <div class="form-input-wrapper">
+                            <select id="dwindle-force_split" data-config-key="dwindle.force_split">
+                                <option value="0">Disabled</option>
+                                <option value="1">Always split vertically first</option>
+                                <option value="2">Always split horizontally first</option>
+                            </select>
+                        </div>
+                    </div>
+                    <h4>Master Layout</h4>
+                     <div class="form-group">
+                        <label for="master-new_status">New Window Status:</label>
+                         <div class="form-input-wrapper">
+                             <select id="master-new_status" data-config-key="master.new_status">
+                                 <option value="master">Master</option>
+                                 <option value="slave">Slave</option>
+                             </select>
+                             <span>Where new windows appear in the master layout.</span>
+                         </div>
+                    </div>
+                </div>
+
+                 <div id="form-misc" class="settings-form">
+                    <h3>Miscellaneous Settings</h3>
+                     <div class="form-group">
+                        <label for="misc-force_default_wallpaper">Force Wallpaper:</label>
+                         <div class="form-input-wrapper">
+                             <input type="number" id="misc-force_default_wallpaper" data-config-key="misc.force_default_wallpaper">
+                             <span>Force a specific default wallpaper (-1 = default, 0 = first, 1 = second, etc.).</span>
+                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-disable_hyprland_logo">Disable Logo:</label>
+                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                            <input type="checkbox" id="misc-disable_hyprland_logo" data-config-key="misc.disable_hyprland_logo">
+                            <label for="misc-disable_hyprland_logo">Disable the random Hyprland logo background.</label>
+                         </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <section id="output-section">
+        <h2>Generated hyprland.conf (Review the configuration before use.)</h2>
+        <pre><code id="generated-config"># Config will appear here...</code></pre>
+        <button id="copy-button">Copy to Clipboard</button>
+        <button id="download-button">Download .conf File</button>
+    </section>
+    <script src="script.js" defer></script>
+</body>
+</html>
