@@ -1,25 +1,157 @@
 document.addEventListener('DOMContentLoaded', () => {
     let hyprConfig = {
-        variables: [ // Değişkenler eklendi
+        variables: [
             { name: 'mainMod', value: 'SUPER' },
             { name: 'terminal', value: 'kitty' },
             { name: 'fileManager', value: 'dolphin' },
             { name: 'menu', value: 'wofi --show drun' }
         ],
-        monitors: [ { name: '', resolution: 'preferred', position: 'auto', scale: 'auto', transform: 'normal' } ],
+        monitors: [
+            { name: '', resolution: 'preferred', position: 'auto', scale: 'auto', transform: 'normal' }
+        ],
         execOnce: [],
-        env: [ { name: 'XCURSOR_SIZE', value: '24' }, { name: 'HYPRCURSOR_SIZE', value: '24' } ],
-        input: { kb_layout: 'us', kb_variant: '', kb_model: '', kb_options: '', kb_rules: '', follow_mouse: 1, sensitivity: 0, touchpad: { natural_scroll: false } },
-        general: { gaps_in: 5, gaps_out: 20, border_size: 2, 'col.active_border': 'rgba(33ccffee) rgba(00ff99ee) 45deg', 'col.inactive_border': 'rgba(595959aa)', resize_on_border: false, allow_tearing: false, layout: 'dwindle' },
-        decoration: { rounding: 10, active_opacity: 1.0, inactive_opacity: 1.0, shadow: { enabled: true, range: 4, render_power: 3, color: 'rgba(1a1a1aee)' }, blur: { enabled: true, size: 3, passes: 1, vibrancy: 0.1696 } },
-        animations: { enabled: true, beziers: [ { name: 'easeOutQuint', curve: '0.23,1,0.32,1' }, { name: 'easeInOutCubic', curve: '0.65,0.05,0.36,1' }, { name: 'linear', curve: '0,0,1,1' }, { name: 'almostLinear', curve: '0.5,0.5,0.75,1.0' }, { name: 'quick', curve: '0.15,0,0.1,1' } ], assignments: [ { name: 'global', enabled: true, speed: 10, curve: 'default' }, { name: 'border', enabled: true, speed: 5.39, curve: 'easeOutQuint' }, { name: 'windows', enabled: true, speed: 4.79, curve: 'easeOutQuint' }, { name: 'windowsIn', enabled: true, speed: 4.1, curve: 'easeOutQuint', style: 'popin 87%' }, { name: 'windowsOut', enabled: true, speed: 1.49, curve: 'linear', style: 'popin 87%' }, { name: 'fadeIn', enabled: true, speed: 1.73, curve: 'almostLinear' }, { name: 'fadeOut', enabled: true, speed: 1.46, curve: 'almostLinear' }, { name: 'fade', enabled: true, speed: 3.03, curve: 'quick' }, { name: 'layers', enabled: true, speed: 3.81, curve: 'easeOutQuint' }, { name: 'layersIn', enabled: true, speed: 4, curve: 'easeOutQuint', style: 'fade' }, { name: 'layersOut', enabled: true, speed: 1.5, curve: 'linear', style: 'fade' }, { name: 'fadeLayersIn', enabled: true, speed: 1.79, curve: 'almostLinear' }, { name: 'fadeLayersOut', enabled: true, speed: 1.39, curve: 'almostLinear' }, { name: 'workspaces', enabled: true, speed: 1.94, curve: 'almostLinear', style: 'fade' }, { name: 'workspacesIn', enabled: true, speed: 1.21, curve: 'almostLinear', style: 'fade' }, { name: 'workspacesOut', enabled: true, speed: 1.94, curve: 'almostLinear', style: 'fade' } ] },
-        dwindle: { pseudotile: true, preserve_split: true },
-        master: { new_status: 'master' },
-        gestures: { workspace_swipe: false },
-        misc: { force_default_wallpaper: -1, disable_hyprland_logo: false },
-        devices: [ { name: 'epic-mouse-v1', sensitivity: -0.5 } ],
-        keybinds: [ { type: 'bind', mods: ['$mainMod'], key: 'Q', action: 'exec', arg: '$terminal' }, { type: 'bind', mods: ['$mainMod'], key: 'C', action: 'killactive', arg: '' }, { type: 'bind', mods: ['$mainMod'], key: 'M', action: 'exit', arg: '' }, { type: 'bind', mods: ['$mainMod'], key: 'E', action: 'exec', arg: '$fileManager' }, { type: 'bind', mods: ['$mainMod'], key: 'V', action: 'togglefloating', arg: '' }, { type: 'bind', mods: ['$mainMod'], key: 'R', action: 'exec', arg: '$menu' }, { type: 'bind', mods: ['$mainMod'], key: 'P', action: 'pseudo', arg: '' }, { type: 'bind', mods: ['$mainMod'], key: 'J', action: 'togglesplit', arg: '' }, { type: 'bind', mods: ['$mainMod'], key: 'left', action: 'movefocus', arg: 'l' }, { type: 'bind', mods: ['$mainMod'], key: 'right', action: 'movefocus', arg: 'r' }, { type: 'bind', mods: ['$mainMod'], key: 'up', action: 'movefocus', arg: 'u' }, { type: 'bind', mods: ['$mainMod'], key: 'down', action: 'movefocus', arg: 'd' }, { type: 'bind', mods: ['$mainMod'], key: '1', action: 'workspace', arg: '1' }, { type: 'bind', mods: ['$mainMod'], key: '2', action: 'workspace', arg: '2' }, { type: 'bind', mods: ['$mainMod'], key: '3', action: 'workspace', arg: '3' }, { type: 'bind', mods: ['$mainMod'], key: '4', action: 'workspace', arg: '4' }, { type: 'bind', mods: ['$mainMod'], key: '5', action: 'workspace', arg: '5' }, { type: 'bind', mods: ['$mainMod'], key: '6', action: 'workspace', arg: '6' }, { type: 'bind', mods: ['$mainMod'], key: '7', action: 'workspace', arg: '7' }, { type: 'bind', mods: ['$mainMod'], key: '8', action: 'workspace', arg: '8' }, { type: 'bind', mods: ['$mainMod'], key: '9', action: 'workspace', arg: '9' }, { type: 'bind', mods: ['$mainMod'], key: '0', action: 'workspace', arg: '10' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '1', action: 'movetoworkspace', arg: '1' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '2', action: 'movetoworkspace', arg: '2' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '3', action: 'movetoworkspace', arg: '3' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '4', action: 'movetoworkspace', arg: '4' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '5', action: 'movetoworkspace', arg: '5' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '6', action: 'movetoworkspace', arg: '6' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '7', action: 'movetoworkspace', arg: '7' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '8', action: 'movetoworkspace', arg: '8' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '9', action: 'movetoworkspace', arg: '9' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '0', action: 'movetoworkspace', arg: '10' }, { type: 'bind', mods: ['$mainMod'], key: 'S', action: 'togglespecialworkspace', arg: 'magic' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: 'S', action: 'movetoworkspace', arg: 'special:magic' }, { type: 'bind', mods: ['$mainMod'], key: 'mouse_down', action: 'workspace', arg: 'e+1' }, { type: 'bind', mods: ['$mainMod'], key: 'mouse_up', action: 'workspace', arg: 'e-1' }, { type: 'bindm', mods: ['$mainMod'], key: 'mouse:272', action: 'movewindow', arg: '' }, { type: 'bindm', mods: ['$mainMod'], key: 'mouse:273', action: 'resizewindow', arg: '' }, { type: 'bindel', mods: [], key: 'XF86AudioRaiseVolume', action: 'exec', arg: 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+' }, { type: 'bindel', mods: [], key: 'XF86AudioLowerVolume', action: 'exec', arg: 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-' }, { type: 'bindel', mods: [], key: 'XF86AudioMute', action: 'exec', arg: 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle' }, { type: 'bindel', mods: [], key: 'XF86AudioMicMute', action: 'exec', arg: 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle' }, { type: 'bindel', mods: [], key: 'XF86MonBrightnessUp', action: 'exec', arg: 'brightnessctl s 10%+' }, { type: 'bindel', mods: [], key: 'XF86MonBrightnessDown', action: 'exec', arg: 'brightnessctl s 10%-' }, { type: 'bindl', mods: [], key: 'XF86AudioNext', action: 'exec', arg: 'playerctl next' }, { type: 'bindl', mods: [], key: 'XF86AudioPause', action: 'exec', arg: 'playerctl play-pause' }, { type: 'bindl', mods: [], key: 'XF86AudioPlay', action: 'exec', arg: 'playerctl play-pause' }, { type: 'bindl', mods: [], key: 'XF86AudioPrev', action: 'exec', arg: 'playerctl previous' } ],
-        windowrules: [ { rule: 'suppressevent', condition: 'maximize, class:.*', value: '' }, { rule: 'nofocus', condition: 'class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0', value: ''} ]
+        env: [
+            { name: 'XCURSOR_SIZE', value: '24' },
+            { name: 'HYPRCURSOR_SIZE', value: '24' }
+        ],
+        input: {
+            kb_layout: 'us',
+            kb_variant: '',
+            kb_model: '',
+            kb_options: '',
+            kb_rules: '',
+            follow_mouse: 1,
+            sensitivity: 0,
+            touchpad: {
+                natural_scroll: false
+            }
+        },
+        general: {
+            gaps_in: 5,
+            gaps_out: 20,
+            border_size: 2,
+            'col.active_border': 'rgba(33ccffee) rgba(00ff99ee) 45deg',
+            'col.inactive_border': 'rgba(595959aa)',
+            resize_on_border: false,
+            allow_tearing: false,
+            layout: 'dwindle',
+        },
+        decoration: {
+            rounding: 10,
+            active_opacity: 1.0,
+            inactive_opacity: 1.0,
+            shadow: {
+                enabled: true,
+                range: 4,
+                render_power: 3,
+                color: 'rgba(1a1a1aee)'
+            },
+            blur: {
+                enabled: true,
+                size: 3,
+                passes: 1,
+                vibrancy: 0.1696
+            },
+        },
+        animations: {
+            enabled: true,
+            beziers: [
+                { name: 'easeOutQuint', curve: '0.23,1,0.32,1' },
+                { name: 'easeInOutCubic', curve: '0.65,0.05,0.36,1' },
+                { name: 'linear', curve: '0,0,1,1' },
+                { name: 'almostLinear', curve: '0.5,0.5,0.75,1.0' },
+                { name: 'quick', curve: '0.15,0,0.1,1' }
+            ],
+            assignments: [
+                { name: 'global', enabled: true, speed: 10, curve: 'default' },
+                { name: 'border', enabled: true, speed: 5.39, curve: 'easeOutQuint' },
+                { name: 'windows', enabled: true, speed: 4.79, curve: 'easeOutQuint' },
+                { name: 'windowsIn', enabled: true, speed: 4.1, curve: 'easeOutQuint', style: 'popin 87%' },
+                { name: 'windowsOut', enabled: true, speed: 1.49, curve: 'linear', style: 'popin 87%' },
+                { name: 'fadeIn', enabled: true, speed: 1.73, curve: 'almostLinear' },
+                { name: 'fadeOut', enabled: true, speed: 1.46, curve: 'almostLinear' },
+                { name: 'fade', enabled: true, speed: 3.03, curve: 'quick' },
+                { name: 'layers', enabled: true, speed: 3.81, curve: 'easeOutQuint' },
+                { name: 'layersIn', enabled: true, speed: 4, curve: 'easeOutQuint', style: 'fade' },
+                { name: 'layersOut', enabled: true, speed: 1.5, curve: 'linear', style: 'fade' },
+                { name: 'fadeLayersIn', enabled: true, speed: 1.79, curve: 'almostLinear' },
+                { name: 'fadeLayersOut', enabled: true, speed: 1.39, curve: 'almostLinear' },
+                { name: 'workspaces', enabled: true, speed: 1.94, curve: 'almostLinear', style: 'fade' },
+                { name: 'workspacesIn', enabled: true, speed: 1.21, curve: 'almostLinear', style: 'fade' },
+                { name: 'workspacesOut', enabled: true, speed: 1.94, curve: 'almostLinear', style: 'fade' }
+            ]
+        },
+        dwindle: {
+            pseudotile: true,
+            preserve_split: true
+        },
+        master: {
+            new_status: 'master',
+        },
+        gestures: {
+            workspace_swipe: false
+        },
+        misc: {
+            force_default_wallpaper: -1,
+            disable_hyprland_logo: false,
+        },
+        devices: [
+             { name: 'epic-mouse-v1', sensitivity: -0.5 }
+        ],
+        keybinds: [
+            { type: 'bind', mods: ['$mainMod'], key: 'Q', action: 'exec', arg: '$terminal' },
+            { type: 'bind', mods: ['$mainMod'], key: 'C', action: 'killactive', arg: '' },
+            { type: 'bind', mods: ['$mainMod'], key: 'M', action: 'exit', arg: '' },
+            { type: 'bind', mods: ['$mainMod'], key: 'E', action: 'exec', arg: '$fileManager' },
+            { type: 'bind', mods: ['$mainMod'], key: 'V', action: 'togglefloating', arg: '' },
+            { type: 'bind', mods: ['$mainMod'], key: 'R', action: 'exec', arg: '$menu' },
+            { type: 'bind', mods: ['$mainMod'], key: 'P', action: 'pseudo', arg: '' },
+            { type: 'bind', mods: ['$mainMod'], key: 'J', action: 'togglesplit', arg: '' },
+            { type: 'bind', mods: ['$mainMod'], key: 'left', action: 'movefocus', arg: 'l' },
+            { type: 'bind', mods: ['$mainMod'], key: 'right', action: 'movefocus', arg: 'r' },
+            { type: 'bind', mods: ['$mainMod'], key: 'up', action: 'movefocus', arg: 'u' },
+            { type: 'bind', mods: ['$mainMod'], key: 'down', action: 'movefocus', arg: 'd' },
+            { type: 'bind', mods: ['$mainMod'], key: '1', action: 'workspace', arg: '1' },
+            { type: 'bind', mods: ['$mainMod'], key: '2', action: 'workspace', arg: '2' },
+            { type: 'bind', mods: ['$mainMod'], key: '3', action: 'workspace', arg: '3' },
+            { type: 'bind', mods: ['$mainMod'], key: '4', action: 'workspace', arg: '4' },
+            { type: 'bind', mods: ['$mainMod'], key: '5', action: 'workspace', arg: '5' },
+            { type: 'bind', mods: ['$mainMod'], key: '6', action: 'workspace', arg: '6' },
+            { type: 'bind', mods: ['$mainMod'], key: '7', action: 'workspace', arg: '7' },
+            { type: 'bind', mods: ['$mainMod'], key: '8', action: 'workspace', arg: '8' },
+            { type: 'bind', mods: ['$mainMod'], key: '9', action: 'workspace', arg: '9' },
+            { type: 'bind', mods: ['$mainMod'], key: '0', action: 'workspace', arg: '10' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '1', action: 'movetoworkspace', arg: '1' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '2', action: 'movetoworkspace', arg: '2' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '3', action: 'movetoworkspace', arg: '3' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '4', action: 'movetoworkspace', arg: '4' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '5', action: 'movetoworkspace', arg: '5' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '6', action: 'movetoworkspace', arg: '6' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '7', action: 'movetoworkspace', arg: '7' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '8', action: 'movetoworkspace', arg: '8' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '9', action: 'movetoworkspace', arg: '9' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '0', action: 'movetoworkspace', arg: '10' },
+            { type: 'bind', mods: ['$mainMod'], key: 'S', action: 'togglespecialworkspace', arg: 'magic' },
+            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: 'S', action: 'movetoworkspace', arg: 'special:magic' },
+            { type: 'bind', mods: ['$mainMod'], key: 'mouse_down', action: 'workspace', arg: 'e+1' },
+            { type: 'bind', mods: ['$mainMod'], key: 'mouse_up', action: 'workspace', arg: 'e-1' },
+            { type: 'bindm', mods: ['$mainMod'], key: 'mouse:272', action: 'movewindow', arg: '' },
+            { type: 'bindm', mods: ['$mainMod'], key: 'mouse:273', action: 'resizewindow', arg: '' },
+            { type: 'bindel', mods: [], key: 'XF86AudioRaiseVolume', action: 'exec', arg: 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+' },
+            { type: 'bindel', mods: [], key: 'XF86AudioLowerVolume', action: 'exec', arg: 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-' },
+            { type: 'bindel', mods: [], key: 'XF86AudioMute', action: 'exec', arg: 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle' },
+            { type: 'bindel', mods: [], key: 'XF86AudioMicMute', action: 'exec', arg: 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle' },
+            { type: 'bindel', mods: [], key: 'XF86MonBrightnessUp', action: 'exec', arg: 'brightnessctl s 10%+' },
+            { type: 'bindel', mods: [], key: 'XF86MonBrightnessDown', action: 'exec', arg: 'brightnessctl s 10%-' },
+            { type: 'bindl', mods: [], key: 'XF86AudioNext', action: 'exec', arg: 'playerctl next' },
+            { type: 'bindl', mods: [], key: 'XF86AudioPause', action: 'exec', arg: 'playerctl play-pause' },
+            { type: 'bindl', mods: [], key: 'XF86AudioPlay', action: 'exec', arg: 'playerctl play-pause' },
+            { type: 'bindl', mods: [], key: 'XF86AudioPrev', action: 'exec', arg: 'playerctl previous' }
+        ],
+        windowrules: [
+             { rule: 'suppressevent', condition: 'maximize, class:.*', value: '' },
+             { rule: 'nofocus', condition: 'class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0', value: ''}
+        ]
     };
 
     const sidebarLinks = document.querySelectorAll('#sidebar li[data-category]');
@@ -571,7 +703,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showForm('general');
         updateConfigOutput();
-        console.log("Hyprland Config Editor Initialized.");
     }
 
     init();
