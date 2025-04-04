@@ -1,151 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
     let hyprConfig = {
-        monitors: [
-            { name: '', resolution: 'preferred', position: 'auto', scale: 'auto', transform: 'normal' }
+        variables: [ // Değişkenler eklendi
+            { name: 'mainMod', value: 'SUPER' },
+            { name: 'terminal', value: 'kitty' },
+            { name: 'fileManager', value: 'dolphin' },
+            { name: 'menu', value: 'wofi --show drun' }
         ],
+        monitors: [ { name: '', resolution: 'preferred', position: 'auto', scale: 'auto', transform: 'normal' } ],
         execOnce: [],
-        env: [
-            { name: 'XCURSOR_SIZE', value: '24' },
-            { name: 'HYPRCURSOR_SIZE', value: '24' }
-        ],
-        input: {
-            kb_layout: 'us',
-            kb_variant: '',
-            kb_model: '',
-            kb_options: '',
-            kb_rules: '',
-            follow_mouse: 1,
-            sensitivity: 0,
-            touchpad: {
-                natural_scroll: false
-            }
-        },
-        general: {
-            gaps_in: 5,
-            gaps_out: 20,
-            border_size: 2,
-            'col.active_border': 'rgba(33ccffee) rgba(00ff99ee) 45deg',
-            'col.inactive_border': 'rgba(595959aa)',
-            resize_on_border: false,
-            allow_tearing: false,
-            layout: 'dwindle',
-        },
-        decoration: {
-            rounding: 10,
-            active_opacity: 1.0, 
-            inactive_opacity: 1.0,
-            shadow: { 
-                enabled: true,
-                range: 4,
-                render_power: 3,
-                color: 'rgba(1a1a1aee)'
-            },
-            blur: {
-                enabled: true,
-                size: 3,
-                passes: 1,
-                vibrancy: 0.1696 
-            },
-        },
-        animations: {
-            enabled: true,
-            beziers: [
-                { name: 'easeOutQuint', curve: '0.23,1,0.32,1' },
-                { name: 'easeInOutCubic', curve: '0.65,0.05,0.36,1' },
-                { name: 'linear', curve: '0,0,1,1' },
-                { name: 'almostLinear', curve: '0.5,0.5,0.75,1.0' },
-                { name: 'quick', curve: '0.15,0,0.1,1' }
-            ],
-            assignments: [
-                { name: 'global', enabled: true, speed: 10, curve: 'default' }, 
-                { name: 'border', enabled: true, speed: 5.39, curve: 'easeOutQuint' },
-                { name: 'windows', enabled: true, speed: 4.79, curve: 'easeOutQuint' },
-                { name: 'windowsIn', enabled: true, speed: 4.1, curve: 'easeOutQuint', style: 'popin 87%' },
-                { name: 'windowsOut', enabled: true, speed: 1.49, curve: 'linear', style: 'popin 87%' },
-                { name: 'fadeIn', enabled: true, speed: 1.73, curve: 'almostLinear' },
-                { name: 'fadeOut', enabled: true, speed: 1.46, curve: 'almostLinear' },
-                { name: 'fade', enabled: true, speed: 3.03, curve: 'quick' },
-                { name: 'layers', enabled: true, speed: 3.81, curve: 'easeOutQuint' },
-                { name: 'layersIn', enabled: true, speed: 4, curve: 'easeOutQuint', style: 'fade' },
-                { name: 'layersOut', enabled: true, speed: 1.5, curve: 'linear', style: 'fade' },
-                { name: 'fadeLayersIn', enabled: true, speed: 1.79, curve: 'almostLinear' },
-                { name: 'fadeLayersOut', enabled: true, speed: 1.39, curve: 'almostLinear' },
-                { name: 'workspaces', enabled: true, speed: 1.94, curve: 'almostLinear', style: 'fade' },
-                { name: 'workspacesIn', enabled: true, speed: 1.21, curve: 'almostLinear', style: 'fade' },
-                { name: 'workspacesOut', enabled: true, speed: 1.94, curve: 'almostLinear', style: 'fade' }
-            ]
-        },
-        dwindle: {
-            pseudotile: true,
-            preserve_split: true 
-        },
-        master: {
-            new_status: 'master',
-        },
-        gestures: { 
-            workspace_swipe: false
-        },
-        misc: {
-            force_default_wallpaper: -1,
-            disable_hyprland_logo: false,
-        },
-        devices: [
-             { name: 'epic-mouse-v1', sensitivity: -0.5 }
-        ],
-        keybinds: [
-            { type: 'bind', mods: ['$mainMod'], key: 'Q', action: 'exec', arg: '$terminal' },
-            { type: 'bind', mods: ['$mainMod'], key: 'C', action: 'killactive', arg: '' },
-            { type: 'bind', mods: ['$mainMod'], key: 'M', action: 'exit', arg: '' },
-            { type: 'bind', mods: ['$mainMod'], key: 'E', action: 'exec', arg: '$fileManager' },
-            { type: 'bind', mods: ['$mainMod'], key: 'V', action: 'togglefloating', arg: '' },
-            { type: 'bind', mods: ['$mainMod'], key: 'R', action: 'exec', arg: '$menu' },
-            { type: 'bind', mods: ['$mainMod'], key: 'P', action: 'pseudo', arg: '' },
-            { type: 'bind', mods: ['$mainMod'], key: 'J', action: 'togglesplit', arg: '' },
-            { type: 'bind', mods: ['$mainMod'], key: 'left', action: 'movefocus', arg: 'l' },
-            { type: 'bind', mods: ['$mainMod'], key: 'right', action: 'movefocus', arg: 'r' },
-            { type: 'bind', mods: ['$mainMod'], key: 'up', action: 'movefocus', arg: 'u' },
-            { type: 'bind', mods: ['$mainMod'], key: 'down', action: 'movefocus', arg: 'd' },
-            { type: 'bind', mods: ['$mainMod'], key: '1', action: 'workspace', arg: '1' },
-            { type: 'bind', mods: ['$mainMod'], key: '2', action: 'workspace', arg: '2' },
-            { type: 'bind', mods: ['$mainMod'], key: '3', action: 'workspace', arg: '3' },
-            { type: 'bind', mods: ['$mainMod'], key: '4', action: 'workspace', arg: '4' },
-            { type: 'bind', mods: ['$mainMod'], key: '5', action: 'workspace', arg: '5' },
-            { type: 'bind', mods: ['$mainMod'], key: '6', action: 'workspace', arg: '6' },
-            { type: 'bind', mods: ['$mainMod'], key: '7', action: 'workspace', arg: '7' },
-            { type: 'bind', mods: ['$mainMod'], key: '8', action: 'workspace', arg: '8' },
-            { type: 'bind', mods: ['$mainMod'], key: '9', action: 'workspace', arg: '9' },
-            { type: 'bind', mods: ['$mainMod'], key: '0', action: 'workspace', arg: '10' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '1', action: 'movetoworkspace', arg: '1' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '2', action: 'movetoworkspace', arg: '2' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '3', action: 'movetoworkspace', arg: '3' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '4', action: 'movetoworkspace', arg: '4' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '5', action: 'movetoworkspace', arg: '5' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '6', action: 'movetoworkspace', arg: '6' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '7', action: 'movetoworkspace', arg: '7' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '8', action: 'movetoworkspace', arg: '8' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '9', action: 'movetoworkspace', arg: '9' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '0', action: 'movetoworkspace', arg: '10' },
-            { type: 'bind', mods: ['$mainMod'], key: 'S', action: 'togglespecialworkspace', arg: 'magic' },
-            { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: 'S', action: 'movetoworkspace', arg: 'special:magic' },
-            { type: 'bind', mods: ['$mainMod'], key: 'mouse_down', action: 'workspace', arg: 'e+1' },
-            { type: 'bind', mods: ['$mainMod'], key: 'mouse_up', action: 'workspace', arg: 'e-1' },
-            { type: 'bindm', mods: ['$mainMod'], key: 'mouse:272', action: 'movewindow', arg: '' },
-            { type: 'bindm', mods: ['$mainMod'], key: 'mouse:273', action: 'resizewindow', arg: '' },
-            { type: 'bindel', mods: [], key: 'XF86AudioRaiseVolume', action: 'exec', arg: 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+' },
-            { type: 'bindel', mods: [], key: 'XF86AudioLowerVolume', action: 'exec', arg: 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-' },
-            { type: 'bindel', mods: [], key: 'XF86AudioMute', action: 'exec', arg: 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle' },
-            { type: 'bindel', mods: [], key: 'XF86AudioMicMute', action: 'exec', arg: 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle' },
-            { type: 'bindel', mods: [], key: 'XF86MonBrightnessUp', action: 'exec', arg: 'brightnessctl s 10%+' },
-            { type: 'bindel', mods: [], key: 'XF86MonBrightnessDown', action: 'exec', arg: 'brightnessctl s 10%-' },
-            { type: 'bindl', mods: [], key: 'XF86AudioNext', action: 'exec', arg: 'playerctl next' },
-            { type: 'bindl', mods: [], key: 'XF86AudioPause', action: 'exec', arg: 'playerctl play-pause' },
-            { type: 'bindl', mods: [], key: 'XF86AudioPlay', action: 'exec', arg: 'playerctl play-pause' },
-            { type: 'bindl', mods: [], key: 'XF86AudioPrev', action: 'exec', arg: 'playerctl previous' }
-        ],
-        windowrules: [
-             { rule: 'suppressevent', condition: 'maximize, class:.*', value: '' },
-             { rule: 'nofocus', condition: 'class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0', value: ''}
-        ]
+        env: [ { name: 'XCURSOR_SIZE', value: '24' }, { name: 'HYPRCURSOR_SIZE', value: '24' } ],
+        input: { kb_layout: 'us', kb_variant: '', kb_model: '', kb_options: '', kb_rules: '', follow_mouse: 1, sensitivity: 0, touchpad: { natural_scroll: false } },
+        general: { gaps_in: 5, gaps_out: 20, border_size: 2, 'col.active_border': 'rgba(33ccffee) rgba(00ff99ee) 45deg', 'col.inactive_border': 'rgba(595959aa)', resize_on_border: false, allow_tearing: false, layout: 'dwindle' },
+        decoration: { rounding: 10, active_opacity: 1.0, inactive_opacity: 1.0, shadow: { enabled: true, range: 4, render_power: 3, color: 'rgba(1a1a1aee)' }, blur: { enabled: true, size: 3, passes: 1, vibrancy: 0.1696 } },
+        animations: { enabled: true, beziers: [ { name: 'easeOutQuint', curve: '0.23,1,0.32,1' }, { name: 'easeInOutCubic', curve: '0.65,0.05,0.36,1' }, { name: 'linear', curve: '0,0,1,1' }, { name: 'almostLinear', curve: '0.5,0.5,0.75,1.0' }, { name: 'quick', curve: '0.15,0,0.1,1' } ], assignments: [ { name: 'global', enabled: true, speed: 10, curve: 'default' }, { name: 'border', enabled: true, speed: 5.39, curve: 'easeOutQuint' }, { name: 'windows', enabled: true, speed: 4.79, curve: 'easeOutQuint' }, { name: 'windowsIn', enabled: true, speed: 4.1, curve: 'easeOutQuint', style: 'popin 87%' }, { name: 'windowsOut', enabled: true, speed: 1.49, curve: 'linear', style: 'popin 87%' }, { name: 'fadeIn', enabled: true, speed: 1.73, curve: 'almostLinear' }, { name: 'fadeOut', enabled: true, speed: 1.46, curve: 'almostLinear' }, { name: 'fade', enabled: true, speed: 3.03, curve: 'quick' }, { name: 'layers', enabled: true, speed: 3.81, curve: 'easeOutQuint' }, { name: 'layersIn', enabled: true, speed: 4, curve: 'easeOutQuint', style: 'fade' }, { name: 'layersOut', enabled: true, speed: 1.5, curve: 'linear', style: 'fade' }, { name: 'fadeLayersIn', enabled: true, speed: 1.79, curve: 'almostLinear' }, { name: 'fadeLayersOut', enabled: true, speed: 1.39, curve: 'almostLinear' }, { name: 'workspaces', enabled: true, speed: 1.94, curve: 'almostLinear', style: 'fade' }, { name: 'workspacesIn', enabled: true, speed: 1.21, curve: 'almostLinear', style: 'fade' }, { name: 'workspacesOut', enabled: true, speed: 1.94, curve: 'almostLinear', style: 'fade' } ] },
+        dwindle: { pseudotile: true, preserve_split: true },
+        master: { new_status: 'master' },
+        gestures: { workspace_swipe: false },
+        misc: { force_default_wallpaper: -1, disable_hyprland_logo: false },
+        devices: [ { name: 'epic-mouse-v1', sensitivity: -0.5 } ],
+        keybinds: [ { type: 'bind', mods: ['$mainMod'], key: 'Q', action: 'exec', arg: '$terminal' }, { type: 'bind', mods: ['$mainMod'], key: 'C', action: 'killactive', arg: '' }, { type: 'bind', mods: ['$mainMod'], key: 'M', action: 'exit', arg: '' }, { type: 'bind', mods: ['$mainMod'], key: 'E', action: 'exec', arg: '$fileManager' }, { type: 'bind', mods: ['$mainMod'], key: 'V', action: 'togglefloating', arg: '' }, { type: 'bind', mods: ['$mainMod'], key: 'R', action: 'exec', arg: '$menu' }, { type: 'bind', mods: ['$mainMod'], key: 'P', action: 'pseudo', arg: '' }, { type: 'bind', mods: ['$mainMod'], key: 'J', action: 'togglesplit', arg: '' }, { type: 'bind', mods: ['$mainMod'], key: 'left', action: 'movefocus', arg: 'l' }, { type: 'bind', mods: ['$mainMod'], key: 'right', action: 'movefocus', arg: 'r' }, { type: 'bind', mods: ['$mainMod'], key: 'up', action: 'movefocus', arg: 'u' }, { type: 'bind', mods: ['$mainMod'], key: 'down', action: 'movefocus', arg: 'd' }, { type: 'bind', mods: ['$mainMod'], key: '1', action: 'workspace', arg: '1' }, { type: 'bind', mods: ['$mainMod'], key: '2', action: 'workspace', arg: '2' }, { type: 'bind', mods: ['$mainMod'], key: '3', action: 'workspace', arg: '3' }, { type: 'bind', mods: ['$mainMod'], key: '4', action: 'workspace', arg: '4' }, { type: 'bind', mods: ['$mainMod'], key: '5', action: 'workspace', arg: '5' }, { type: 'bind', mods: ['$mainMod'], key: '6', action: 'workspace', arg: '6' }, { type: 'bind', mods: ['$mainMod'], key: '7', action: 'workspace', arg: '7' }, { type: 'bind', mods: ['$mainMod'], key: '8', action: 'workspace', arg: '8' }, { type: 'bind', mods: ['$mainMod'], key: '9', action: 'workspace', arg: '9' }, { type: 'bind', mods: ['$mainMod'], key: '0', action: 'workspace', arg: '10' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '1', action: 'movetoworkspace', arg: '1' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '2', action: 'movetoworkspace', arg: '2' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '3', action: 'movetoworkspace', arg: '3' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '4', action: 'movetoworkspace', arg: '4' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '5', action: 'movetoworkspace', arg: '5' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '6', action: 'movetoworkspace', arg: '6' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '7', action: 'movetoworkspace', arg: '7' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '8', action: 'movetoworkspace', arg: '8' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '9', action: 'movetoworkspace', arg: '9' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: '0', action: 'movetoworkspace', arg: '10' }, { type: 'bind', mods: ['$mainMod'], key: 'S', action: 'togglespecialworkspace', arg: 'magic' }, { type: 'bind', mods: ['$mainMod', 'SHIFT'], key: 'S', action: 'movetoworkspace', arg: 'special:magic' }, { type: 'bind', mods: ['$mainMod'], key: 'mouse_down', action: 'workspace', arg: 'e+1' }, { type: 'bind', mods: ['$mainMod'], key: 'mouse_up', action: 'workspace', arg: 'e-1' }, { type: 'bindm', mods: ['$mainMod'], key: 'mouse:272', action: 'movewindow', arg: '' }, { type: 'bindm', mods: ['$mainMod'], key: 'mouse:273', action: 'resizewindow', arg: '' }, { type: 'bindel', mods: [], key: 'XF86AudioRaiseVolume', action: 'exec', arg: 'wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+' }, { type: 'bindel', mods: [], key: 'XF86AudioLowerVolume', action: 'exec', arg: 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-' }, { type: 'bindel', mods: [], key: 'XF86AudioMute', action: 'exec', arg: 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle' }, { type: 'bindel', mods: [], key: 'XF86AudioMicMute', action: 'exec', arg: 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle' }, { type: 'bindel', mods: [], key: 'XF86MonBrightnessUp', action: 'exec', arg: 'brightnessctl s 10%+' }, { type: 'bindel', mods: [], key: 'XF86MonBrightnessDown', action: 'exec', arg: 'brightnessctl s 10%-' }, { type: 'bindl', mods: [], key: 'XF86AudioNext', action: 'exec', arg: 'playerctl next' }, { type: 'bindl', mods: [], key: 'XF86AudioPause', action: 'exec', arg: 'playerctl play-pause' }, { type: 'bindl', mods: [], key: 'XF86AudioPlay', action: 'exec', arg: 'playerctl play-pause' }, { type: 'bindl', mods: [], key: 'XF86AudioPrev', action: 'exec', arg: 'playerctl previous' } ],
+        windowrules: [ { rule: 'suppressevent', condition: 'maximize, class:.*', value: '' }, { rule: 'nofocus', condition: 'class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0', value: ''} ]
     };
 
     const sidebarLinks = document.querySelectorAll('#sidebar li[data-category]');
@@ -158,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const monitorListContainer = document.getElementById('monitor-list');
     const keybindListContainer = document.getElementById('keybind-list');
     const windowruleListContainer = document.getElementById('windowrule-list');
-    const autostartListContainer = document.getElementById('autostart-list'); 
+    const autostartListContainer = document.getElementById('autostart-list');
     const bezierListContainer = document.getElementById('bezier-list');
     const animationAssignmentListContainer = document.getElementById('animation-assignment-list');
 
@@ -184,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
          rgbaColor = String(rgbaColor);
          if (rgbaColor.includes(' ') || !rgbaColor.toLowerCase().startsWith('rgba(')) { return '#000000'; }
         const hexPart = rgbaColor.substring(5, rgbaColor.length - 1).split(',')[0].trim();
-        if (hexPart && hexPart.length >= 6) { return `#${hexPart.substring(0, 6)}`; } 
+        if (hexPart && hexPart.length >= 6) { return `#${hexPart.substring(0, 6)}`; }
         return '#000000';
     }
 
@@ -205,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 current[finalKey] = value;
                 const displayElement = inputElement?.parentElement?.querySelector('.color-text-display');
                 if (displayElement) displayElement.value = value;
-                if (inputElement) inputElement.value = formatRgbaToHex(value); // Attempt to set picker
+                if (inputElement) inputElement.value = formatRgbaToHex(value);
             } else { current[finalKey] = value; }
 
             updateConfigOutput();
@@ -214,160 +88,181 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function generateConfigString() {
         let config = `# Generated by hyprconf-gen\n\n`;
+        let sectionAdded = false;
 
-        (hyprConfig.monitors || []).forEach(mon => {
-            const parts = [ mon.name || '""', mon.resolution || 'preferred', mon.position || 'auto', String(mon.scale ?? 'auto') ];
-            if (mon.transform && mon.transform !== 'normal') parts.push(`transform,${mon.transform}`);
-            config += `monitor=${parts.join(',')}\n`;
-        });
-        if (hyprConfig.monitors?.length > 0) config += '\n';
+        const addNewlineIfNeeded = () => {
+            if (sectionAdded) { config += '\n'; }
+            sectionAdded = false;
+        };
+
+        if (Array.isArray(hyprConfig.variables) && hyprConfig.variables.length > 0) {
+            config += "# Variables\n";
+            let variableContentAdded = false;
+            hyprConfig.variables.forEach(variable => {
+                if (variable.name && variable.value !== undefined && variable.value !== null) {
+                    const varName = variable.name.startsWith('$') ? variable.name : `$${variable.name}`;
+                    config += `${varName} = ${variable.value}\n`;
+                    variableContentAdded = true;
+                }
+            });
+            if (variableContentAdded) sectionAdded = true;
+        }
+
+        if (hyprConfig.monitors?.length > 0) {
+            addNewlineIfNeeded();
+            config += "# Monitors\n";
+            hyprConfig.monitors.forEach(mon => {
+                const parts = [ mon.name || '""', mon.resolution || 'preferred', mon.position || 'auto', String(mon.scale ?? 'auto') ];
+                if (mon.transform && mon.transform !== 'normal') parts.push(`transform,${mon.transform}`);
+                config += `monitor=${parts.join(',')}\n`;
+            });
+            sectionAdded = true;
+        }
 
         if (Array.isArray(hyprConfig.env) && hyprConfig.env.length > 0) {
+             addNewlineIfNeeded();
+            config += "# Environment Variables\n";
+            let envContentAdded = false;
             hyprConfig.env.forEach(envVar => {
                 if (envVar.name && envVar.value !== undefined && envVar.value !== null) {
                     config += `env = ${envVar.name},${envVar.value}\n`;
+                    envContentAdded = true;
                 }
             });
-            config += '\n';
+            if (envContentAdded) sectionAdded = true;
         }
 
         const execs = (hyprConfig.execOnce || []).filter(cmd => typeof cmd === 'string' && cmd.trim());
-        execs.forEach(cmd => { config += `exec-once = ${cmd.trim()}\n`; });
-        if (execs.length > 0) config += '\n';
+        if (execs.length > 0) {
+             addNewlineIfNeeded();
+            config += "# Autostart\n";
+            execs.forEach(cmd => { config += `exec-once = ${cmd.trim()}\n`; });
+            sectionAdded = true;
+        }
 
-        let inputHasContent = false;
+        let inputHasContent = false; let inputBlockContent = '';
         if (hyprConfig.input && typeof hyprConfig.input === 'object') {
-            let inputBlock = 'input {\n';
             for (const key in hyprConfig.input) {
                 const value = hyprConfig.input[key];
                 if (key === 'touchpad' && typeof value === 'object' && value !== null) {
-                    let touchpadBlock = '    touchpad {\n'; let tpHasContent = false;
+                    let touchpadBlock = ''; let tpHasContent = false;
                     for (const tpKey in value) {
                          const tpValue = value[tpKey];
                          if (tpValue !== '' && tpValue !== null && tpValue !== undefined) { if (typeof tpValue === 'boolean' || tpValue || tpValue === 0) { touchpadBlock += `        ${tpKey} = ${tpValue}\n`; tpHasContent = true; } }
                     }
-                    touchpadBlock += '    }\n';
-                    if (tpHasContent) { inputBlock += touchpadBlock; inputHasContent = true; }
+                    if (tpHasContent) { inputBlockContent += `    touchpad {\n${touchpadBlock}    }\n`; inputHasContent = true; }
                 } else if (key !== 'touchpad' && value !== '' && value !== null && value !== undefined) {
-                     if (typeof value === 'boolean' || value || value === 0) { inputBlock += `    ${key} = ${value}\n`; inputHasContent = true; }
+                     if (typeof value === 'boolean' || value || value === 0) { inputBlockContent += `    ${key} = ${value}\n`; inputHasContent = true; }
                 }
             }
-            inputBlock += `}\n`;
-            if (inputHasContent) config += inputBlock + '\n';
         }
+        if (inputHasContent) { addNewlineIfNeeded(); config += "# Input\n"; config += `input {\n${inputBlockContent}}\n`; sectionAdded = true; }
 
+        let gestureHasContent = false; let gestureBlockContent = '';
         if (hyprConfig.gestures && typeof hyprConfig.gestures === 'object' && Object.keys(hyprConfig.gestures).length > 0) {
-             let gestureBlock = 'gestures {\n'; let gestureHasContent = false;
              for (const key in hyprConfig.gestures) {
                   const value = hyprConfig.gestures[key];
-                  if (value !== '' && value !== null && value !== undefined) { if (typeof value === 'boolean' || value || value === 0) { gestureBlock += `    ${key} = ${value}\n`; gestureHasContent = true; } }
+                  if (value !== '' && value !== null && value !== undefined) { if (typeof value === 'boolean' || value || value === 0) { gestureBlockContent += `    ${key} = ${value}\n`; gestureHasContent = true; } }
              }
-             gestureBlock += '}\n';
-             if (gestureHasContent) config += gestureBlock + '\n';
         }
+        if (gestureHasContent) { addNewlineIfNeeded(); config += "# Gestures\n"; config += `gestures {\n${gestureBlockContent}}\n`; sectionAdded = true; }
 
-        let generalHasContent = false;
+        let generalHasContent = false; let generalBlockContent = '';
         if(hyprConfig.general && typeof hyprConfig.general === 'object') {
-            let generalBlock = 'general {\n';
             for (const key in hyprConfig.general) {
                  const value = hyprConfig.general[key];
-                 if (value !== null && value !== undefined) { if (typeof value === 'boolean' || value || value === 0 || value === '') { generalBlock += `    ${key} = ${value}\n`; generalHasContent = true; } }
+                 if (value !== null && value !== undefined) { if (typeof value === 'boolean' || value || value === 0 || value === '') { generalBlockContent += `    ${key} = ${value}\n`; generalHasContent = true; } }
             }
-            generalBlock += `}\n`;
-            if (generalHasContent) config += generalBlock + '\n';
         }
+        if (generalHasContent) { addNewlineIfNeeded(); config += "# General\n"; config += `general {\n${generalBlockContent}}\n`; sectionAdded = true; }
 
-        let decorationHasContent = false;
+        let decorationHasContent = false; let decorationBlockContent = '';
          if(hyprConfig.decoration && typeof hyprConfig.decoration === 'object') {
-            let decorationBlock = 'decoration {\n';
             for (const key in hyprConfig.decoration) {
                 const value = hyprConfig.decoration[key];
                 if (key === 'blur' && typeof value === 'object' && value !== null) {
-                     let blurBlock = `    blur {\n`; let blurHasContent = false;
+                     let blurBlock = ''; let blurHasContent = false;
                      for (const blurKey in value) { if (value[blurKey] !== null && value[blurKey] !== undefined) { if (typeof value[blurKey] === 'boolean' || value[blurKey] || value[blurKey] === 0) { blurBlock += `        ${blurKey} = ${value[blurKey]}\n`; blurHasContent = true; } } }
-                     blurBlock += `    }\n`;
-                     if (blurHasContent) { decorationBlock += blurBlock; decorationHasContent = true; }
+                     if (blurHasContent) { decorationBlockContent += `    blur {\n${blurBlock}    }\n`; decorationHasContent = true; }
                 } else if (key === 'shadow' && typeof value === 'object' && value !== null) {
-                    let shadowBlock = `    shadow {\n`; let shadowHasContent = false;
+                    let shadowBlock = ''; let shadowHasContent = false;
                     for (const shadowKey in value) { if (value[shadowKey] !== null && value[shadowKey] !== undefined) { if (typeof value[shadowKey] === 'boolean' || value[shadowKey] || value[shadowKey] === 0) { shadowBlock += `        ${shadowKey} = ${value[shadowKey]}\n`; shadowHasContent = true; } } }
-                    shadowBlock += `    }\n`;
-                    if (shadowHasContent) { decorationBlock += shadowBlock; decorationHasContent = true; }
+                    if (shadowHasContent) { decorationBlockContent += `    shadow {\n${shadowBlock}    }\n`; decorationHasContent = true; }
                 } else if (key !== 'blur' && key !== 'shadow' && value !== null && value !== undefined) {
-                     if (typeof value === 'boolean' || value || value === 0) { decorationBlock += `    ${key} = ${value}\n`; decorationHasContent = true; }
+                     if (typeof value === 'boolean' || value || value === 0) { decorationBlockContent += `    ${key} = ${value}\n`; decorationHasContent = true; }
                 }
             }
-            decorationBlock += `}\n`;
-            if (decorationHasContent) config += decorationBlock + '\n';
          }
+         if (decorationHasContent) { addNewlineIfNeeded(); config += "# Decoration\n"; config += `decoration {\n${decorationBlockContent}}\n`; sectionAdded = true; }
 
-        let animationsHasContent = false;
+        let animationsHasContent = false; let animationsBlockContent = '';
         if(hyprConfig.animations && typeof hyprConfig.animations === 'object') {
-            let animationsBlock = 'animations {\n';
-            animationsBlock += `    enabled = ${hyprConfig.animations.enabled ? 'true' : 'false'}\n`;
+            animationsBlockContent += `    enabled = ${hyprConfig.animations.enabled ? 'true' : 'false'}\n`;
             if (hyprConfig.animations.enabled || hyprConfig.animations.beziers?.length > 0 || hyprConfig.animations.assignments?.length > 0) {
                 animationsHasContent = true;
-                 (hyprConfig.animations.beziers || []).forEach(bezier => { if (bezier.name && bezier.curve) { animationsBlock += `    bezier = ${bezier.name.trim()}, ${bezier.curve.trim()}\n`; } });
+                 (hyprConfig.animations.beziers || []).forEach(bezier => { if (bezier.name && bezier.curve) { animationsBlockContent += `    bezier = ${bezier.name.trim()}, ${bezier.curve.trim()}\n`; } });
                   (hyprConfig.animations.assignments || []).forEach(anim => {
                      if (anim.name) {
                           const parts = [anim.name, anim.enabled ? '1' : '0'];
                           if (anim.speed !== undefined && anim.speed !== null) parts.push(anim.speed);
                           if (anim.curve) parts.push(anim.curve.trim());
                           if (anim.style && typeof anim.style === 'string' && anim.style.trim()) parts.push(anim.style.trim());
-                          animationsBlock += `    animation = ${parts.join(', ')}\n`;
+                          animationsBlockContent += `    animation = ${parts.join(', ')}\n`;
                      }
                  });
             } else if (!hyprConfig.animations.enabled) { animationsHasContent = true; }
-            animationsBlock += `}\n`;
-            if (animationsHasContent) config += animationsBlock + '\n';
         }
+        if (animationsHasContent) { addNewlineIfNeeded(); config += "# Animations\n"; config += `animations {\n${animationsBlockContent}}\n`; sectionAdded = true; }
 
-        let layoutConfigAdded = false;
         const addLayoutBlock = (layoutName, layoutSettings) => {
-            if (!layoutSettings || typeof layoutSettings !== 'object') return;
-            let block = `${layoutName} {\n`; let hasContent = false;
-            for (const key in layoutSettings) {
+             if (!layoutSettings || typeof layoutSettings !== 'object') return false;
+             let blockContent = ''; let hasContent = false;
+             for (const key in layoutSettings) {
                  const value = layoutSettings[key];
-                 if (value !== null && value !== undefined) { if (typeof value === 'boolean' || value || value === 0 || value === '') { block += `    ${key} = ${value}\n`; hasContent = true; } }
-            }
-            block += `}\n`;
-            if (hasContent) { config += block; layoutConfigAdded = true; }
+                 if (value !== null && value !== undefined) { if (typeof value === 'boolean' || value || value === 0 || value === '') { blockContent += `    ${key} = ${value}\n`; hasContent = true; } }
+             }
+             if (hasContent) {
+                 addNewlineIfNeeded(); config += `# ${layoutName} Layout\n`;
+                 config += `${layoutName} {\n${blockContent}}\n`; sectionAdded = true; return true;
+             }
+             return false;
         };
         if (hyprConfig.general?.layout === 'dwindle') addLayoutBlock('dwindle', hyprConfig.dwindle);
         if (hyprConfig.general?.layout === 'master') addLayoutBlock('master', hyprConfig.master);
-        if(layoutConfigAdded) config += '\n';
 
-        let miscHasContent = false;
+        let miscHasContent = false; let miscBlockContent = '';
          if(hyprConfig.misc && typeof hyprConfig.misc === 'object') {
-            let miscBlock = 'misc {\n';
             for (const key in hyprConfig.misc) {
                  const value = hyprConfig.misc[key];
-                if (value !== null && value !== undefined) { if (typeof value === 'boolean' || value || value === 0) { miscBlock += `    ${key} = ${value}\n`; miscHasContent = true; } }
+                if (value !== null && value !== undefined) { if (typeof value === 'boolean' || value || value === 0) { miscBlockContent += `    ${key} = ${value}\n`; miscHasContent = true; } }
             }
-            miscBlock += `}\n`;
-             if (miscHasContent) config += miscBlock + '\n';
          }
+         if (miscHasContent) { addNewlineIfNeeded(); config += "# Miscellaneous\n"; config += `misc {\n${miscBlockContent}}\n`; sectionAdded = true; }
 
+        let devicesContent = ''; let devicesAdded = false;
         if(Array.isArray(hyprConfig.devices) && hyprConfig.devices.length > 0) {
-            hyprConfig.devices.forEach(device => {
+             (hyprConfig.devices || []).forEach(device => {
                 if(device && device.name) {
-                    let deviceBlock = `device {\n    name = ${device.name}\n`;
+                    devicesContent += `device {\n    name = ${device.name}\n`;
                      for(const key in device) {
                          if(key !== 'name') {
                             const value = device[key];
-                             if (value !== null && value !== undefined) { if (typeof value === 'boolean' || value || value === 0 || value === '') { deviceBlock += `    ${key} = ${value}\n`; } }
+                             if (value !== null && value !== undefined) { if (typeof value === 'boolean' || value || value === 0 || value === '') { devicesContent += `    ${key} = ${value}\n`; } }
                          }
                      }
-                    deviceBlock += '}\n';
-                    config += deviceBlock + '\n';
+                    devicesContent += '}\n'; devicesAdded = true;
                 }
             });
         }
+        if(devicesAdded) { addNewlineIfNeeded(); config += "# Per-Device Input Settings\n"; config += devicesContent; sectionAdded = true;}
 
-        let keybindsAdded = false;
+        let keybindsContent = ''; let keybindsAdded = false;
         (hyprConfig.keybinds || []).forEach(bind => {
             if (!bind || !bind.key || (bind.type !== 'unbind' && !bind.action)) return;
             const bindType = bind.type || 'bind';
             const modString = Array.isArray(bind.mods) ? bind.mods.filter(m => m).join('') : '';
+            const modsArray = Array.isArray(bind.mods) ? bind.mods : [];
+
             let bindLine = `${bindType} = `;
             if (modString) { bindLine += `${modString}, `; }
             bindLine += `${bind.key}`;
@@ -375,18 +270,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 bindLine += `, ${bind.action}`;
                 if (bind.arg && typeof bind.arg === 'string' && bind.arg.trim()) { bindLine += `, ${bind.arg.trim()}`; }
             }
-            config += `${bindLine}\n`; keybindsAdded = true;
-        });
-        if (keybindsAdded) config += '\n';
+            keybindsContent += `${bindLine}\n`; keybindsAdded = true;
 
-        let rulesAdded = false;
+            const isModMain = modsArray.includes('$mainMod');
+            const isModMainShift = modsArray.includes('$mainMod') && modsArray.includes('SHIFT');
+
+            if (bindType === 'bind' && isModMain && bind.key === 'down' && bind.action === 'movefocus' && bind.arg === 'd') { keybindsContent += '\n'; }
+            else if (bindType === 'bind' && isModMain && bind.key === '0' && bind.action === 'workspace' && bind.arg === '10') { keybindsContent += '\n'; }
+            else if (bindType === 'bind' && isModMainShift && bind.key === '0' && bind.action === 'movetoworkspace' && bind.arg === '10') { keybindsContent += '\n'; }
+            else if (bindType === 'bind' && isModMain && bind.key === 'mouse_up' && bind.action === 'workspace' && bind.arg === 'e-1') { keybindsContent += '\n'; }
+            else if (bindType === 'bindm' && isModMain && bind.key === 'mouse:273' && bind.action === 'resizewindow') { keybindsContent += '\n'; }
+
+        });
+        if (keybindsAdded) { addNewlineIfNeeded(); config += "# Keybinds\n"; config += keybindsContent.trimEnd() + '\n'; sectionAdded = true; }
+
+        let rulesContent = ''; let rulesAdded = false;
         (hyprConfig.windowrules || []).forEach(rule => {
             if (!rule || !rule.rule || !rule.condition) return;
             const parts = [ rule.rule, rule.condition ];
              if (rule.value && typeof rule.value === 'string' && rule.value.trim()) { parts.push(rule.value.trim()); }
-            config += `windowrule=${parts.join(',')}\n`; rulesAdded = true;
+            rulesContent += `windowrule=${parts.join(',')}\n`; rulesAdded = true;
         });
-        if (rulesAdded) config += '\n';
+        if (rulesAdded) { addNewlineIfNeeded(); config += "# Window Rules\n"; config += rulesContent; sectionAdded = true; }
 
         config = config.trimEnd();
         if (config.length > 0) { config += '\n'; }
@@ -435,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
         html += opts.map(opt => {
             const value = opt ?? "";
             const text = value === "" ? "-- Select --" : value;
-            return `<option value="${value}" ${selectedValue == value ? 'selected' : ''}>${text}</option>`; 
+            return `<option value="${value}" ${selectedValue == value ? 'selected' : ''}>${text}</option>`;
         }).join('');
         return html;
     };
@@ -456,24 +361,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderAutostartList() {
-        if (!autostartListContainer) { console.error("Autostart list container not found!"); return; }
+        if (!autostartListContainer) { return; }
         autostartListContainer.innerHTML = '';
         const execOnceCommands = hyprConfig.execOnce || [];
-        if (!Array.isArray(execOnceCommands)) { console.error("execOnce is not an array!", execOnceCommands); return; }
-
+        if (!Array.isArray(execOnceCommands)) { return; }
         execOnceCommands.forEach((command, index) => {
             const div = document.createElement('div'); div.classList.add('dynamic-list-item');
             const commandValue = typeof command === 'string' ? command : '';
-            div.innerHTML = `<div class="form-group" style="grid-template-columns: auto 1fr auto; align-items: center; gap: 5px 10px;"> <label style="/*...*/">Command:</label> <input type="text" value="${commandValue.replace(/"/g, '"')}" data-index="${index}" data-list="execOnce" data-prop="command" placeholder="e.g., waybar &" style="/*...*/"> <button type="button" class="remove-btn" data-index="${index}" data-list="execOnce" style="/*...*/">Remove</button> </div>`;
+            div.innerHTML = `<div class="form-group" style="grid-template-columns: auto 1fr auto; align-items: center; gap: 5px 10px;"> <label style="grid-column: 1; text-align: left; min-width: auto; padding-right: 5px; color: var(--text-color-dark);">Command:</label> <input type="text" value="${commandValue.replace(/"/g, '"')}" data-index="${index}" data-list="execOnce" data-prop="command" placeholder="e.g., waybar &" style="grid-column: 2; max-width: none;"> <button type="button" class="remove-btn" data-index="${index}" data-list="execOnce" style="grid-column: 3; position: static; transform: scale(0.9);">Remove</button> </div>`;
             autostartListContainer.appendChild(div);
         });
    }
-
     function addAutostart() {
-        if (!Array.isArray(hyprConfig.execOnce)) { console.warn("execOnce was not an array, initializing."); hyprConfig.execOnce = []; }
+        if (!Array.isArray(hyprConfig.execOnce)) { hyprConfig.execOnce = []; }
         hyprConfig.execOnce.push('');
         renderAutostartList();
-    } 
+    }
 
     function renderKeybindList() {
        keybindListContainer.innerHTML = '';
@@ -554,7 +457,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (Array.isArray(targetArray) && targetArray.length > index && index >= 0) {
             targetArray.splice(index, 1);
-            console.log(`Removed item at index ${index} from ${listName}`);
             if (listName === 'beziers' && removedItemName) {
                 let curveResetOccurred = false;
                  (hyprConfig.animations?.assignments || []).forEach(anim => { if (anim.curve === removedItemName) { anim.curve = 'default'; curveResetOccurred = true; } });
@@ -582,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let value = target.type === 'checkbox' ? target.checked : target.value;
 
         if (target.matches('[data-config-key]') && !listName) {
-            if (target.matches('.color-text-display')) {
+             if (target.matches('.color-text-display')) {
                  const keyStringForColor = target.parentElement?.querySelector('input[type="color"]')?.getAttribute('data-config-key');
                  if(keyStringForColor) { updateConfigValue(keyStringForColor, value); }
             } else { updateConfigValue(target.getAttribute('data-config-key'), value); }
@@ -613,7 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
                  updateConfigOutput();
             } else { console.warn(`Target array/index invalid: ${listName}[${index}]`); }
         }
-        else if (target.matches('.bezier-preset-selector')) { 
+        else if (target.matches('.bezier-preset-selector')) {
              const targetIndexStr = target.getAttribute('data-target-index'); const presetValue = target.value;
              if (targetIndexStr !== null && presetValue) {
                  const targetIndex = parseInt(targetIndexStr, 10);
@@ -626,9 +528,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     settingsFormsContainer.addEventListener('input', handleInputChange);
     settingsFormsContainer.addEventListener('change', handleInputChange);
-    settingsFormsContainer.addEventListener('blur', (event) => { 
+    settingsFormsContainer.addEventListener('blur', (event) => {
          if (event.target && event.target.matches('.color-text-display')) { handleInputChange(event); }
-    }, true); // Use capture phase
+    }, true);
 
     document.body.addEventListener('click', (event) => {
         const target = event.target; if (!target) return;
@@ -653,7 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
                          if (displayElement) displayElement.value = String(value);
                          inputElement.value = formatRgbaToHex(String(value));
                      } else {
-                          if(inputElement.tagName === 'SELECT') { if([...inputElement.options].some(opt => opt.value == value)) { inputElement.value = value; } else { /* console.warn(`Value "${value}" not found for ${keyString}`); */ } }
+                          if(inputElement.tagName === 'SELECT') { if([...inputElement.options].some(opt => opt.value == value)) { inputElement.value = value; } else { /* Warn? */ } }
                           else { inputElement.value = value; }
                      }
                 }
@@ -662,13 +564,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         renderMonitorList();
         renderAutostartList();
+        renderKeybindList();
         renderWindowRuleList();
         renderBezierList();
         renderAnimationAssignmentList();
 
         showForm('general');
         updateConfigOutput();
-        console.log("Hyprland Config Editor Initialized with Default Config Values (Autostart fix included).");
+        console.log("Hyprland Config Editor Initialized.");
     }
 
     init();
