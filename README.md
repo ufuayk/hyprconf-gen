@@ -1,4 +1,4 @@
-# hyprconf-gen // <img src="https://raw.githubusercontent.com/RUBIYC/brand-content/refs/heads/main/rubiyc-badge.svg" alt="forged in RUBIYC" height="24">
+# hyprconf-gen
 
 A web-based GUI editor designed to simplify the creation and management of your `hyprland.conf` file.
 
