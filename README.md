@@ -4,6 +4,8 @@ A lightweight, web-based configuration (.conf) generator for [Hyprland](https://
 
 No more guessing syntax or constantly referencing the wiki—just tweak your settings visually, import your existing config, and export.
 
+**IMPORTANT NOTE:** This tool currently supports the classic .conf syntax. Lua configuration support is in the roadmap!
+
 ## Features
 
 * **Categorized Settings:** Easily navigate through different configuration sections using the sidebar:
