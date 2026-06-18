@@ -1,371 +1,1445 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hyprconf-gen</title>
+    <meta name="description" content="A lightweight Hyprland configuration editor.">
+    <meta name="keywords" content="hyprconf-gen, hyprland, config, editor, hypr">
+    <meta name="theme-color" content="#2e3440">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="hyprconf-gen - A lightweight Hyprland configuration editor">
+    <meta name="twitter:description" content="A lightweight Hyprland configuration editor.">
+    <meta name="twitter:image" content="https://github.com/ufuayk/hyprconf-gen/blob/main/img/favicon.png">
 
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-    <link rel="icon" href="img/favicon.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="img/favicon.ico">
 </head>
+
 <body>
     <header>
-        <h1>hyprconf-gen</h1>
+        <div class="header-left">
+            <div>
+                <h1>hyprconf-gen</h1>
+                <p class="header-subtitle">The changes disappear when the page reloads, so be careful.</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <label class="import-btn" title="Import existing hyprland.conf">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Import .conf
+                <input type="file" id="import-file-input" accept=".conf,.txt" style="display:none">
+            </label>
+            <button id="reset-btn" class="danger-btn" title="Reset all settings to defaults">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="1 4 1 10 7 10" />
+                    <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+                </svg>
+                Reset
+            </button>
+        </div>
     </header>
 
     <div class="main-layout">
         <nav id="sidebar">
-            <h2>Categories</h2>
+            <div class="sidebar-section-label">Core</div>
             <ul>
-                <li data-category="general" class="active">General & Appearance</li>
-                <li data-category="monitors">Monitors</li>
-                <li data-category="input">Input Devices</li>
-                <li data-category="keybinds">Keybinds</li>
-                <li data-category="windowrules">Window Rules</li>
-                <li data-category="autostart">Autostart (exec-once)</li>
-                <li data-category="animations">Animations</li>
-                <li data-category="decoration">Decoration</li>
-                <li data-category="layouts">Layouts</li>
-                <li data-category="misc">Miscellaneous</li>
-                <li data-category="variables">Variables (soon?)</li>
+                <li data-category="general" class="active">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                        <path d="M4.93 4.93a10 10 0 0 0 0 14.14" />
+                    </svg>
+                    General
+                </li>
+                <li data-category="monitors">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <line x1="8" y1="21" x2="16" y2="21" />
+                        <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                    Monitors
+                </li>
+                <li data-category="input">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" />
+                        <path d="M16 2l-4 5-4-5" />
+                    </svg>
+                    Input
+                </li>
+            </ul>
+            <div class="sidebar-section-label">Appearance</div>
+            <ul>
+                <li data-category="decoration">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    </svg>
+                    Decoration
+                </li>
+                <li data-category="animations">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12s2.545-5 7-5c4.454 0 7 5 7 5s-2.546 5-7 5c-4.455 0-7-5-7-5z" />
+                        <path d="M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="currentColor" />
+                    </svg>
+                    Animations
+                </li>
+                <li data-category="layouts">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="18" />
+                        <rect x="14" y="3" width="7" height="9" />
+                        <rect x="14" y="16" width="7" height="5" />
+                    </svg>
+                    Layouts
+                </li>
+            </ul>
+            <div class="sidebar-section-label">Behavior</div>
+            <ul>
+                <li data-category="keybinds">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="3" height="3" rx="1" />
+                        <rect x="8" y="7" width="3" height="3" rx="1" />
+                        <rect x="14" y="7" width="3" height="3" rx="1" />
+                        <rect x="20" y="7" width="2" height="3" rx="1" />
+                        <rect x="2" y="13" width="20" height="3" rx="1" />
+                    </svg>
+                    Keybinds
+                </li>
+                <li data-category="windowrules">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3h18v4H3z" />
+                        <path d="M3 10h18v4H3z" />
+                        <path d="M3 17h18v4H3z" />
+                    </svg>
+                    Window Rules
+                </li>
+                <li data-category="workspacerules">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="9" height="9" rx="1" />
+                        <rect x="13" y="2" width="9" height="9" rx="1" />
+                        <rect x="2" y="13" width="9" height="9" rx="1" />
+                        <rect x="13" y="13" width="9" height="9" rx="1" />
+                    </svg>
+                    Workspace Rules
+                </li>
+                <li data-category="gestures">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                        <line x1="6" y1="1" x2="6" y2="4" />
+                        <line x1="10" y1="1" x2="10" y2="4" />
+                        <line x1="14" y1="1" x2="14" y2="4" />
+                    </svg>
+                    Gestures
+                </li>
+            </ul>
+            <div class="sidebar-section-label">System</div>
+            <ul>
+                <li data-category="autostart">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none" />
+                    </svg>
+                    Autostart
+                </li>
+                <li data-category="env">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="4 17 10 11 4 5" />
+                        <line x1="12" y1="19" x2="20" y2="19" />
+                    </svg>
+                    Environment
+                </li>
+                <li data-category="variables">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" y1="9" x2="20" y2="9" />
+                        <line x1="4" y1="15" x2="20" y2="15" />
+                        <line x1="10" y1="3" x2="8" y2="21" />
+                        <line x1="16" y1="3" x2="14" y2="21" />
+                    </svg>
+                    Variables
+                </li>
+                <li data-category="misc">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="1" />
+                        <circle cx="19" cy="12" r="1" />
+                        <circle cx="5" cy="12" r="1" />
+                    </svg>
+                    Miscellaneous
+                </li>
             </ul>
         </nav>
 
         <main id="main-content">
             <div id="settings-forms">
+
+                <!-- GENERAL -->
                 <div id="form-general" class="settings-form active-form">
-                    <h3>General Settings</h3>
+                    <h3>General &amp; Window Settings</h3>
+                    <p class="form-desc">Core window manager settings controlling borders, gaps, and tiling behavior.
+                    </p>
+
+                    <h4>Borders &amp; Gaps</h4>
                     <div class="form-group">
-                        <label for="general-border_size">Border Size:</label>
-                         <div class="form-input-wrapper">
-                            <input type="number" id="general-border_size" data-config-key="general.border_size" min="0">
-                            <span>Window border thickness (px).</span>
-                         </div>
+                        <label for="general-border_size">Border Size</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="general-border_size" data-config-key="general.border_size" min="0"
+                                max="20">
+                            <span>Window border thickness in pixels. 0 disables borders.</span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="general-gaps_in">Gaps In:</label>
+                        <label for="general-gaps_in">Gaps In</label>
                         <div class="form-input-wrapper">
                             <input type="number" id="general-gaps_in" data-config-key="general.gaps_in" min="0">
-                            <span>Inner gaps between windows (px).</span>
+                            <span>Inner gaps between tiled windows (px).</span>
                         </div>
                     </div>
-                     <div class="form-group">
-                        <label for="general-gaps_out">Gaps Out:</label>
+                    <div class="form-group">
+                        <label for="general-gaps_out">Gaps Out</label>
                         <div class="form-input-wrapper">
                             <input type="number" id="general-gaps_out" data-config-key="general.gaps_out">
-                            <span>Outer gaps to monitor edges (px, can be negative).</span>
+                            <span>Outer gaps between windows and monitor edges (px). Can be negative.</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="general-col_active_border">Active Border Color:</label>
-                        <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                            <input type="color" id="general-col_active_border" data-config-key="general.col.active_border">
-                            <input type="text" class="color-text-display" data-config-key="general.col.active_border" placeholder="rgba(...) or gradient...">
-                         </div>
-                         <span>Can be single color (rgba/rgb hex) or gradient. Picker only shows first color. Use text field for gradients.</span>
+                        <label for="general-gaps_workspaces">Gaps Workspaces</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="general-gaps_workspaces" data-config-key="general.gaps_workspaces"
+                                min="0">
+                            <span>Extra gaps between workspaces on the same monitor (px).</span>
+                        </div>
+                    </div>
+
+                    <h4>Colors</h4>
+                    <div class="form-group">
+                        <label for="general-col_active_border">Active Border</label>
+                        <div class="form-input-wrapper">
+                            <div class="color-row">
+                                <input type="color" id="general-col_active_border"
+                                    data-config-key="general.col.active_border">
+                                <input type="text" class="color-text-display"
+                                    data-config-key="general.col.active_border"
+                                    placeholder="rgba(33ccffee) rgba(00ff99ee) 45deg">
+                            </div>
+                            <span>Single color or gradient. Use text field for gradient syntax.</span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="general-col_inactive_border">Inactive Border Color:</label>
-                        <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                            <input type="color" id="general-col_inactive_border" data-config-key="general.col.inactive_border">
-                            <input type="text" class="color-text-display" data-config-key="general.col.inactive_border" placeholder="rgba(...)">
-                         </div>
-                         <span>Usually a single rgba/rgb hex color.</span>
+                        <label for="general-col_inactive_border">Inactive Border</label>
+                        <div class="form-input-wrapper">
+                            <div class="color-row">
+                                <input type="color" id="general-col_inactive_border"
+                                    data-config-key="general.col.inactive_border">
+                                <input type="text" class="color-text-display"
+                                    data-config-key="general.col.inactive_border" placeholder="rgba(595959aa)">
+                            </div>
+                        </div>
                     </div>
-                     <div class="form-group">
-                        <label for="general-layout">Default Layout:</label>
-                         <div class="form-input-wrapper">
+                    <div class="form-group">
+                        <label for="general-col_nogroup_border">No-Group Border</label>
+                        <div class="form-input-wrapper">
+                            <div class="color-row">
+                                <input type="color" id="general-col_nogroup_border"
+                                    data-config-key="general.col.nogroup_border">
+                                <input type="text" class="color-text-display"
+                                    data-config-key="general.col.nogroup_border" placeholder="rgba(ff0000aa)">
+                            </div>
+                            <span>Border color for windows that cannot be added to a group.</span>
+                        </div>
+                    </div>
+
+                    <h4>Layout &amp; Behavior</h4>
+                    <div class="form-group">
+                        <label for="general-layout">Default Layout</label>
+                        <div class="form-input-wrapper">
                             <select id="general-layout" data-config-key="general.layout">
                                 <option value="dwindle">Dwindle</option>
                                 <option value="master">Master</option>
                             </select>
-                            <span>Default tiling layout.</span>
+                            <span>Default tiling layout algorithm.</span>
                         </div>
                     </div>
-                     <div class="form-group">
-                        <label for="general-resize_on_border">Resize on Border:</label>
-                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                             <input type="checkbox" id="general-resize_on_border" data-config-key="general.resize_on_border">
-                             <label for="general-resize_on_border">Enable resizing by dragging borders/gaps.</label>
-                         </div>
+                    <div class="form-group">
+                        <label for="general-resize_on_border">Resize on Border</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="general-resize_on_border"
+                                data-config-key="general.resize_on_border">
+                            <label for="general-resize_on_border">Enable resizing windows by dragging borders or
+                                gaps.</label>
+                        </div>
                     </div>
-                     <div class="form-group">
-                        <label for="general-allow_tearing">Allow Tearing:</label>
-                        <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                             <input type="checkbox" id="general-allow_tearing" data-config-key="general.allow_tearing">
-                             <label for="general-allow_tearing">Allow screen tearing (see wiki first).</label>
-                         </div>
+                    <div class="form-group">
+                        <label for="general-extend_border_grab_area">Border Grab Area</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="general-extend_border_grab_area"
+                                data-config-key="general.extend_border_grab_area" min="0">
+                            <span>Extra pixels outside the border that can be grabbed for resizing (requires
+                                resize_on_border).</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="general-hover_icon_on_border">Hover Icon</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="general-hover_icon_on_border"
+                                data-config-key="general.hover_icon_on_border">
+                            <label for="general-hover_icon_on_border">Show resize cursor when hovering over
+                                borders.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="general-allow_tearing">Allow Tearing</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="general-allow_tearing" data-config-key="general.allow_tearing">
+                            <label for="general-allow_tearing">Allow screen tearing for reduced latency (requires
+                                windowrule). Read wiki first!</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="general-snap_enabled">Window Snapping</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="general-snap_enabled" data-config-key="general.snap.enabled">
+                            <label for="general-snap_enabled">Enable window snapping when dragging near edges.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="general-snap_window_gap">Snap Gap</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="general-snap_window_gap" data-config-key="general.snap.window_gap"
+                                min="0">
+                            <span>Minimum gap in pixels between windows before snapping.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="general-snap_monitor_gap">Snap Monitor Gap</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="general-snap_monitor_gap"
+                                data-config-key="general.snap.monitor_gap" min="0">
+                            <span>Distance from monitor edge before snapping.</span>
+                        </div>
                     </div>
                 </div>
 
+                <!-- MONITORS -->
                 <div id="form-monitors" class="settings-form">
                     <h3>Monitor Configuration</h3>
-                    <p>Define your monitor setup. Leave Name blank for any. Use `preferred` for resolution/refresh rate to use native mode. Scale `auto` usually means 1.</p>
-                    <div id="monitor-list">
-                    </div>
-                    <button type="button" id="add-monitor-btn">Add Monitor</button>
+                    <p class="form-desc">Define your monitor setup. Leave Name blank for any monitor. Use
+                        <code>preferred</code> for resolution/refresh to use native mode. Position <code>auto</code>
+                        places monitors automatically. Scale <code>auto</code> means 1.
+                    </p>
+                    <div id="monitor-list"></div>
+                    <button type="button" id="add-monitor-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Add Monitor
+                    </button>
                 </div>
 
-                 <div id="form-input" class="settings-form">
+                <!-- INPUT -->
+                <div id="form-input" class="settings-form">
                     <h3>Input Devices</h3>
-                    <p>Configure keyboard, mouse, and touchpad settings.</p>
+                    <p class="form-desc">Configure keyboard, mouse, and touchpad behavior.</p>
+
                     <h4>Keyboard</h4>
-                     <div class="form-group">
-                         <label for="input-kb_layout">Layout:</label>
-                         <div class="form-input-wrapper">
-                             <input type="text" id="input-kb_layout" data-config-key="input.kb_layout" placeholder="us">
-                             <span>e.g., us, gb, de</span>
-                         </div>
-                     </div>
-                     <div class="form-group">
-                         <label for="input-kb_variant">Variant:</label>
-                         <div class="form-input-wrapper"> <input type="text" id="input-kb_variant" data-config-key="input.kb_variant" placeholder=""> </div>
-                     </div>
-                     <div class="form-group">
-                         <label for="input-kb_options">Options:</label>
-                          <div class="form-input-wrapper">
-                            <input type="text" id="input-kb_options" data-config-key="input.kb_options" placeholder="caps:escape">
-                            <span>Comma-separated list, e.g., grp:alt_shift_toggle,caps:escape</span>
-                          </div>
-                     </div>
-                     <div class="form-group">
-                         <label for="input-kb_rules">Rules:</label>
-                          <div class="form-input-wrapper"> <input type="text" id="input-kb_rules" data-config-key="input.kb_rules" placeholder=""> </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="input-numlock_by_default">Numlock On:</label>
-                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                            <input type="checkbox" id="input-numlock_by_default" data-config-key="input.numlock_by_default">
-                            <label for="input-numlock_by_default">Enable numlock on startup.</label>
-                         </div>
+                    <div class="form-group">
+                        <label for="input-kb_layout">Layout</label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="input-kb_layout" data-config-key="input.kb_layout" placeholder="us">
+                            <span>XKB layout. e.g. <code>us</code>, <code>gb</code>, <code>de</code>,
+                                <code>tr</code></span>
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <label for="input-kb_variant">Variant</label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="input-kb_variant" data-config-key="input.kb_variant"
+                                placeholder="(optional)">
+                            <span>XKB variant. e.g. <code>dvorak</code>, <code>colemak</code></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-kb_model">Model</label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="input-kb_model" data-config-key="input.kb_model"
+                                placeholder="(optional)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-kb_options">Options</label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="input-kb_options" data-config-key="input.kb_options"
+                                placeholder="e.g. caps:swapescape">
+                            <span>XKB options, comma separated. e.g. <code>caps:swapescape</code></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-kb_rules">Rules</label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="input-kb_rules" data-config-key="input.kb_rules"
+                                placeholder="(optional)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-numlock_by_default">Numlock</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="input-numlock_by_default"
+                                data-config-key="input.numlock_by_default">
+                            <label for="input-numlock_by_default">Enable numlock by default on startup.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-repeat_rate">Repeat Rate</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="input-repeat_rate" data-config-key="input.repeat_rate" min="0">
+                            <span>Key repeat rate (chars/sec). Default: 25.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-repeat_delay">Repeat Delay</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="input-repeat_delay" data-config-key="input.repeat_delay" min="0">
+                            <span>Delay before key repeat starts (ms). Default: 600.</span>
+                        </div>
+                    </div>
+
                     <h4>Mouse</h4>
                     <div class="form-group">
-                        <label for="input-follow_mouse">Follow Mouse Focus:</label>
-                         <div class="form-input-wrapper">
+                        <label for="input-sensitivity">Sensitivity</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="input-sensitivity" data-config-key="input.sensitivity" min="-1"
+                                max="1" step="0.1">
+                            <span>Mouse sensitivity (-1.0 to 1.0). 0 = no modification.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-accel_profile">Accel Profile</label>
+                        <div class="form-input-wrapper">
+                            <select id="input-accel_profile" data-config-key="input.accel_profile">
+                                <option value="">Default</option>
+                                <option value="adaptive">Adaptive</option>
+                                <option value="flat">Flat (no accel)</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                            <span>libinput acceleration profile. <code>flat</code> = 1:1 movement.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-follow_mouse">Follow Mouse</label>
+                        <div class="form-input-wrapper">
                             <select id="input-follow_mouse" data-config-key="input.follow_mouse">
-                                <option value="0">Disabled</option>
-                                <option value="1">Enabled (Focus follows mouse)</option>
-                                <option value="2">Full (Focus + Raise follows mouse)</option>
-                                <option value="3">Loose (Focus follows mouse loosely)</option>
+                                <option value="0">0 - Disabled</option>
+                                <option value="1">1 - Full follow (default)</option>
+                                <option value="2">2 - Focus on hover, not click-through</option>
+                                <option value="3">3 - No focus change from mouse</option>
+                            </select>
+                            <span>Focus-follows-mouse behavior.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-focus_on_close">Focus on Close</label>
+                        <div class="form-input-wrapper">
+                            <select id="input-focus_on_close" data-config-key="input.focus_on_close">
+                                <option value="0">0 - Focus previous window</option>
+                                <option value="1">1 - Focus window under cursor</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="input-sensitivity">Sensitivity:</label>
-                         <div class="form-input-wrapper">
-                            <input type="number" id="input-sensitivity" data-config-key="input.sensitivity" step="0.1" min="-1" max="1">
-                            <span>Mouse sensitivity (-1.0 to 1.0, 0 = default).</span>
+                        <label for="input-left_handed">Left Handed</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="input-left_handed" data-config-key="input.left_handed">
+                            <label for="input-left_handed">Enable left-handed mouse mode (swaps buttons).</label>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="input-scroll_method">Scroll Method</label>
+                        <div class="form-input-wrapper">
+                            <select id="input-scroll_method" data-config-key="input.scroll_method">
+                                <option value="">Default</option>
+                                <option value="no_scroll">No scroll</option>
+                                <option value="2fg">Two-finger</option>
+                                <option value="edge">Edge</option>
+                                <option value="on_button_down">Button down</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-scroll_button">Scroll Button</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="input-scroll_button" data-config-key="input.scroll_button" min="0">
+                            <span>Mouse button used for scroll_method = on_button_down. 0 = disable.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-natural_scroll">Natural Scroll</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="input-natural_scroll" data-config-key="input.natural_scroll">
+                            <label for="input-natural_scroll">Enable natural (inverted) scroll for mouse wheel.</label>
+                        </div>
+                    </div>
+
                     <h4>Touchpad</h4>
-                     <div class="form-group">
-                        <label for="input-touchpad-natural_scroll">Natural Scroll:</label>
-                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                            <input type="checkbox" id="input-touchpad-natural_scroll" data-config-key="input.touchpad.natural_scroll">
-                            <label for="input-touchpad-natural_scroll">Enable natural (reverse) scrolling.</label>
-                         </div>
+                    <div class="form-group">
+                        <label for="input-touchpad-natural_scroll">Natural Scroll</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="input-touchpad-natural_scroll"
+                                data-config-key="input.touchpad.natural_scroll">
+                            <label for="input-touchpad-natural_scroll">Touchpad natural scrolling (content follows
+                                fingers).</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-touchpad-disable_while_typing">Disable While Typing</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="input-touchpad-disable_while_typing"
+                                data-config-key="input.touchpad.disable_while_typing">
+                            <label for="input-touchpad-disable_while_typing">Disable touchpad while keyboard is in
+                                use.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-touchpad-tap-to-click">Tap-to-Click</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="input-touchpad-tap-to-click"
+                                data-config-key="input.touchpad.tap-to-click">
+                            <label for="input-touchpad-tap-to-click">Enable tapping the touchpad to click.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-touchpad-tap-and-drag">Tap and Drag</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="input-touchpad-tap-and-drag"
+                                data-config-key="input.touchpad.tap-and-drag">
+                            <label for="input-touchpad-tap-and-drag">Enable tap-and-drag gesture.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-touchpad-drag_lock">Drag Lock</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="input-touchpad-drag_lock"
+                                data-config-key="input.touchpad.drag_lock">
+                            <label for="input-touchpad-drag_lock">Keep finger lifted briefly to continue drag.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-touchpad-scroll_factor">Scroll Factor</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="input-touchpad-scroll_factor"
+                                data-config-key="input.touchpad.scroll_factor" min="0" step="0.1">
+                            <span>Touchpad scroll speed multiplier. Default: 1.0</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-touchpad-middle_button_emulation">Middle Button</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="input-touchpad-middle_button_emulation"
+                                data-config-key="input.touchpad.middle_button_emulation">
+                            <label for="input-touchpad-middle_button_emulation">Emulate middle button by tapping with 3
+                                fingers.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-touchpad-clickfinger_behavior">Click Behavior</label>
+                        <div class="form-input-wrapper">
+                            <select id="input-touchpad-clickfinger_behavior"
+                                data-config-key="input.touchpad.clickfinger_behavior">
+                                <option value="0">Button area based</option>
+                                <option value="1">Finger count based (1=left, 2=right, 3=middle)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
-                <div id="form-keybinds" class="settings-form">
-                    <h3>Keybinds</h3>
-                    <p>Define your keyboard and mouse shortcuts. Use `$mainMod` for your primary modifier (usually Super/Win key). Specify mouse buttons like `mouse:272` (left), `mouse:273` (right), `mouse:274` (middle).</p>
-                    <div id="keybind-list"></div>
-                    <button type="button" id="add-keybind-btn">Add Keybind</button>
-                </div>
-
-                 <div id="form-windowrules" class="settings-form">
-                    <h3>Window Rules</h3>
-                    <p>Define rules for specific windows based on class, title, etc. Use RegEx for matching (e.g., `class:^(kitty)$`).</p>
-                    <div id="windowrule-list"></div>
-                    <button type="button" id="add-windowrule-btn">Add Window Rule</button>
-                </div>
-
-                <div id="form-autostart" class="settings-form">
-                    <h3>Autostart Programs (exec-once)</h3>
-                    <p>Commands to run once when Hyprland starts. Add `&` at the end for background processes.</p>
-                    <div id="autostart-list"></div>
-                    <button type="button" id="add-autostart-btn">Add Command</button>
-                </div>
-
-                 <div id="form-animations" class="settings-form">
-                    <h3>Animations</h3>
-                     <div class="form-group">
-                         <label for="animations-enabled">Enable Animations:</label>
-                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                             <input type="checkbox" id="animations-enabled" data-config-key="animations.enabled">
-                             <label for="animations-enabled">Globally enable/disable animations.</label>
-                          </div>
-                     </div>
-                     <h4>Define Bezier Curves</h4>
-                     <p>Define custom bezier curve names for use in assignments.</p>
-                     <div id="bezier-list"></div>
-                     <button type="button" id="add-bezier-btn">Add Bezier Curve</button>
-
-                     <h4>Assign Animation Styles</h4>
-                      <p>Assign specific animation styles, speeds, and curves to different elements.</p>
-                     <div id="animation-assignment-list"></div>
-                     <button type="button" id="add-animation-assignment-btn">Add Animation Assignment</button>
-                </div>
-
-                 <div id="form-decoration" class="settings-form">
+                <!-- DECORATION -->
+                <div id="form-decoration" class="settings-form">
                     <h3>Decoration</h3>
-                     <div class="form-group">
-                        <label for="decoration-rounding">Rounding:</label>
-                         <div class="form-input-wrapper">
+                    <p class="form-desc">Window appearance: rounding, opacity, blur, and shadows.</p>
+
+                    <h4>Window</h4>
+                    <div class="form-group">
+                        <label for="decoration-rounding">Rounding</label>
+                        <div class="form-input-wrapper">
                             <input type="number" id="decoration-rounding" data-config-key="decoration.rounding" min="0">
-                            <span>Window corner rounding radius (px).</span>
+                            <span>Window corner radius in pixels. 0 disables rounding.</span>
                         </div>
                     </div>
-                     <div class="form-group">
-                        <label for="decoration-active_opacity">Active Opacity:</label>
-                         <div class="form-input-wrapper">
-                            <input type="number" id="decoration-active_opacity" data-config-key="decoration.active_opacity" min="0" max="1" step="0.05">
-                            <span>Opacity for the active window (0.0 - 1.0).</span>
-                         </div>
+                    <div class="form-group">
+                        <label for="decoration-rounding_power">Rounding Power</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-rounding_power"
+                                data-config-key="decoration.rounding_power" min="2" max="10" step="0.1">
+                            <span>Controls the corner curve shape. 2 = circular, higher = squircle. Default: 2.</span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="decoration-inactive_opacity">Inactive Opacity:</label>
-                         <div class="form-input-wrapper">
-                            <input type="number" id="decoration-inactive_opacity" data-config-key="decoration.inactive_opacity" min="0" max="1" step="0.05">
-                            <span>Opacity for inactive windows (0.0 - 1.0).</span>
-                         </div>
+                        <label for="decoration-active_opacity">Active Opacity</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-active_opacity"
+                                data-config-key="decoration.active_opacity" min="0" max="1" step="0.01">
+                            <span>Opacity of the active focused window (0.0 - 1.0).</span>
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <label for="decoration-inactive_opacity">Inactive Opacity</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-inactive_opacity"
+                                data-config-key="decoration.inactive_opacity" min="0" max="1" step="0.01">
+                            <span>Opacity of inactive windows (0.0 - 1.0).</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-fullscreen_opacity">Fullscreen Opacity</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-fullscreen_opacity"
+                                data-config-key="decoration.fullscreen_opacity" min="0" max="1" step="0.01">
+                            <span>Opacity of fullscreen windows (0.0 - 1.0).</span>
+                        </div>
+                    </div>
+
                     <h4>Blur</h4>
-                     <div class="form-group">
-                         <label for="decoration-blur-enabled">Enable Blur:</label>
-                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                             <input type="checkbox" id="decoration-blur-enabled" data-config-key="decoration.blur.enabled">
-                             <label for="decoration-blur-enabled">Enable background blur for transparent windows.</label>
-                         </div>
-                     </div>
-                      <div class="form-group">
-                        <label for="decoration-blur-size">Blur Size:</label>
-                         <div class="form-input-wrapper">
-                            <input type="number" id="decoration-blur-size" data-config-key="decoration.blur.size" min="1">
-                            <span>Blur kernel size.</span>
-                         </div>
-                    </div>
-                     <div class="form-group">
-                        <label for="decoration-blur-passes">Blur Passes:</label>
-                         <div class="form-input-wrapper">
-                            <input type="number" id="decoration-blur-passes" data-config-key="decoration.blur.passes" min="1">
-                            <span>Number of blur passes (more passes = smoother but slower).</span>
+                    <div class="form-group">
+                        <label for="decoration-blur-enabled">Enable Blur</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="decoration-blur-enabled"
+                                data-config-key="decoration.blur.enabled">
+                            <label for="decoration-blur-enabled">Enable background blur for transparent windows.</label>
                         </div>
                     </div>
-                     <div class="form-group">
-                        <label for="decoration-blur-vibrancy">Vibrancy:</label>
+                    <div class="form-group">
+                        <label for="decoration-blur-size">Blur Size</label>
                         <div class="form-input-wrapper">
-                            <input type="number" id="decoration-blur-vibrancy" data-config-key="decoration.blur.vibrancy" min="0" max="1" step="0.01">
-                             <span>Increase saturation of blurred areas (0.0 - 1.0).</span>
+                            <input type="number" id="decoration-blur-size" data-config-key="decoration.blur.size"
+                                min="1">
+                            <span>Blur kernel size. Larger = blurrier but slower.</span>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-passes">Blur Passes</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-blur-passes" data-config-key="decoration.blur.passes"
+                                min="1" max="10">
+                            <span>Number of blur passes. More passes = smoother, higher GPU cost.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-ignore_opacity">Ignore Opacity</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="decoration-blur-ignore_opacity"
+                                data-config-key="decoration.blur.ignore_opacity">
+                            <label for="decoration-blur-ignore_opacity">Ignore window opacity for blur (blur all
+                                transparent windows).</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-new_optimizations">New Optimizations</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="decoration-blur-new_optimizations"
+                                data-config-key="decoration.blur.new_optimizations">
+                            <label for="decoration-blur-new_optimizations">Enable blur optimizations for tiled windows
+                                (recommended).</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-xray">Xray</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="decoration-blur-xray" data-config-key="decoration.blur.xray">
+                            <label for="decoration-blur-xray">Make blur use the bottom-most windows as the source, not
+                                the monitor.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-noise">Noise</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-blur-noise" data-config-key="decoration.blur.noise"
+                                min="0" max="1" step="0.001">
+                            <span>Noise amount for the blur (0.0 - 1.0).</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-contrast">Contrast</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-blur-contrast"
+                                data-config-key="decoration.blur.contrast" min="0" max="2" step="0.01">
+                            <span>Contrast modifier for blur (0.0 - 2.0). Default: 0.8916</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-brightness">Brightness</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-blur-brightness"
+                                data-config-key="decoration.blur.brightness" min="0" max="2" step="0.01">
+                            <span>Brightness modifier for blur (0.0 - 2.0). Default: 0.8172</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-vibrancy">Vibrancy</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-blur-vibrancy"
+                                data-config-key="decoration.blur.vibrancy" min="0" max="1" step="0.01">
+                            <span>Vibrancy/saturation of blurred colors (0.0 - 1.0).</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-vibrancy_darkness">Vibrancy Darkness</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-blur-vibrancy_darkness"
+                                data-config-key="decoration.blur.vibrancy_darkness" min="0" max="1" step="0.01">
+                            <span>How dark vibrancy is for dark colors (0.0 - 1.0).</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-popups">Blur Popups</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="decoration-blur-popups" data-config-key="decoration.blur.popups">
+                            <label for="decoration-blur-popups">Apply blur to popup surfaces (tooltips, menus,
+                                etc.).</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-blur-popups_ignorealpha">Popups Alpha Threshold</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-blur-popups_ignorealpha"
+                                data-config-key="decoration.blur.popups_ignorealpha" min="0" max="1" step="0.01">
+                            <span>Alpha threshold for blurring popups (0.0 - 1.0).</span>
+                        </div>
+                    </div>
+
                     <h4>Shadow</h4>
-                     <div class="form-group">
-                         <label for="decoration-shadow-enabled">Enable Shadow:</label>
-                          <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                             <input type="checkbox" id="decoration-shadow-enabled" data-config-key="decoration.shadow.enabled">
-                             <label for="decoration-shadow-enabled">Enable window drop shadows.</label>
-                         </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="decoration-shadow-range">Shadow Range:</label>
-                        <div class="form-input-wrapper">
-                            <input type="number" id="decoration-shadow-range" data-config-key="decoration.shadow.range" min="0">
-                             <span>Shadow size/spread (px).</span>
-                         </div>
+                    <div class="form-group">
+                        <label for="decoration-shadow-enabled">Enable Shadow</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="decoration-shadow-enabled"
+                                data-config-key="decoration.shadow.enabled">
+                            <label for="decoration-shadow-enabled">Enable window drop shadows.</label>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="decoration-shadow-render_power">Render Power:</label>
+                        <label for="decoration-shadow-range">Shadow Range</label>
                         <div class="form-input-wrapper">
-                             <input type="number" id="decoration-shadow-render_power" data-config-key="decoration.shadow.render_power" min="1" max="4">
-                             <span>Shadow quality (1=low, 4=high). Higher uses more GPU.</span>
-                         </div>
+                            <input type="number" id="decoration-shadow-range" data-config-key="decoration.shadow.range"
+                                min="0">
+                            <span>Shadow size/spread in pixels.</span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="decoration-shadow-color">Shadow Color:</label>
-                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                            <input type="color" id="decoration-shadow-color" data-config-key="decoration.shadow.color">
-                            <input type="text" class="color-text-display" data-config-key="decoration.shadow.color" placeholder="rgba(...)">
-                         </div>
-                        <span>Shadow color including alpha (e.g., `rgba(000000aa)`).</span>
+                        <label for="decoration-shadow-render_power">Render Power</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-shadow-render_power"
+                                data-config-key="decoration.shadow.render_power" min="1" max="4">
+                            <span>Shadow falloff power. 1 = soft, 4 = sharp. Default: 3.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-shadow-color">Shadow Color</label>
+                        <div class="form-input-wrapper">
+                            <div class="color-row">
+                                <input type="color" id="decoration-shadow-color"
+                                    data-config-key="decoration.shadow.color">
+                                <input type="text" class="color-text-display" data-config-key="decoration.shadow.color"
+                                    placeholder="rgba(1a1a1aee)">
+                            </div>
+                            <span>Shadow color. Use rgba format with alpha, e.g. <code>rgba(000000aa)</code></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-shadow-color_inactive">Inactive Shadow</label>
+                        <div class="form-input-wrapper">
+                            <div class="color-row">
+                                <input type="color" id="decoration-shadow-color_inactive"
+                                    data-config-key="decoration.shadow.color_inactive">
+                                <input type="text" class="color-text-display"
+                                    data-config-key="decoration.shadow.color_inactive" placeholder="rgba(1a1a1aee)">
+                            </div>
+                            <span>Inactive window shadow color. Defaults to shadow color if unset.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-shadow-offset">Shadow Offset</label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="decoration-shadow-offset" data-config-key="decoration.shadow.offset"
+                                placeholder="0 0">
+                            <span>Shadow offset as <code>x y</code> in pixels. e.g. <code>2 4</code></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-shadow-scale">Shadow Scale</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-shadow-scale" data-config-key="decoration.shadow.scale"
+                                min="0" max="1" step="0.01">
+                            <span>Scale of the shadow relative to the window (0.0 - 1.0). Default: 1.</span>
+                        </div>
+                    </div>
+
+                    <h4>Dimming</h4>
+                    <div class="form-group">
+                        <label for="decoration-dim_inactive">Dim Inactive</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="decoration-dim_inactive"
+                                data-config-key="decoration.dim_inactive">
+                            <label for="decoration-dim_inactive">Dim inactive windows.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-dim_strength">Dim Strength</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-dim_strength" data-config-key="decoration.dim_strength"
+                                min="0" max="1" step="0.01">
+                            <span>Amount to dim inactive windows (0.0 - 1.0). Default: 0.5</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-dim_special">Dim Special</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-dim_special" data-config-key="decoration.dim_special"
+                                min="0" max="1" step="0.01">
+                            <span>Dim behind special workspaces (0.0 - 1.0). Default: 0.2</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decoration-dim_around">Dim Around</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="decoration-dim_around" data-config-key="decoration.dim_around"
+                                min="0" max="1" step="0.01">
+                            <span>Dim behind windows with <code>dimaround</code> window rule (0.0 - 1.0). Default:
+                                0.4</span>
+                        </div>
                     </div>
                 </div>
 
+                <!-- ANIMATIONS -->
+                <div id="form-animations" class="settings-form">
+                    <h3>Animations</h3>
+                    <p class="form-desc">Define animation curves (beziers) and assign them to animation types. Each
+                        animation is: <code>name, enabled, speed, curve, [style]</code></p>
+                    <div class="form-group">
+                        <label for="animations-enabled">Enable Animations</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="animations-enabled" data-config-key="animations.enabled">
+                            <label for="animations-enabled">Master toggle for all animations.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="animations-first_launch_animation">First Launch</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="animations-first_launch_animation"
+                                data-config-key="animations.first_launch_animation">
+                            <label for="animations-first_launch_animation">Show fade-in animation on first
+                                launch.</label>
+                        </div>
+                    </div>
+
+                    <h4>Bezier Curves</h4>
+                    <p class="form-desc" style="margin-bottom:var(--spacing-md)">Define custom cubic bezier curves.
+                        Format: <code>x1,y1,x2,y2</code>. Use the preset selector to apply known curves.</p>
+                    <div id="bezier-list"></div>
+                    <button type="button" id="add-bezier-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Add Bezier Curve
+                    </button>
+
+                    <h4>Animation Assignments</h4>
+                    <p class="form-desc" style="margin-bottom:var(--spacing-md)">Assign curves to animation types. Speed
+                        in seconds (lower = faster). Style is optional.</p>
+                    <div id="animation-assignment-list"></div>
+                    <button type="button" id="add-animation-assignment-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Add Animation
+                    </button>
+                </div>
+
+                <!-- LAYOUTS -->
                 <div id="form-layouts" class="settings-form">
-                    <h3>Layout Specific Settings</h3>
-                    <p>These settings only apply if the corresponding layout (Dwindle/Master) is selected in General Settings.</p>
+                    <h3>Layout Settings</h3>
+                    <p class="form-desc">These settings apply only when the corresponding layout is active. Select your
+                        layout in General settings.</p>
+
                     <h4>Dwindle Layout</h4>
                     <div class="form-group">
-                        <label for="dwindle-pseudotile">Pseudotile:</label>
-                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                        <label for="dwindle-pseudotile">Pseudotile</label>
+                        <div class="form-input-wrapper checkbox-row">
                             <input type="checkbox" id="dwindle-pseudotile" data-config-key="dwindle.pseudotile">
-                            <label for="dwindle-pseudotile">Master window is always split.</label>
-                         </div>
+                            <label for="dwindle-pseudotile">Pseudotile by default — windows keep their float size while
+                                tiled.</label>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="dwindle-preserve_split">Preserve Split:</label>
-                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
+                        <label for="dwindle-preserve_split">Preserve Split</label>
+                        <div class="form-input-wrapper checkbox-row">
                             <input type="checkbox" id="dwindle-preserve_split" data-config-key="dwindle.preserve_split">
-                            <label for="dwindle-preserve_split">Maintain split ratio when window closes.</label>
-                         </div>
+                            <label for="dwindle-preserve_split">Maintain split direction when a window is
+                                closed.</label>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="dwindle-force_split">Force Split:</label>
+                        <label for="dwindle-force_split">Force Split</label>
                         <div class="form-input-wrapper">
                             <select id="dwindle-force_split" data-config-key="dwindle.force_split">
-                                <option value="0">Disabled</option>
-                                <option value="1">Always split vertically first</option>
-                                <option value="2">Always split horizontally first</option>
+                                <option value="0">0 - Follows mouse position</option>
+                                <option value="1">1 - Always split to the right / bottom</option>
+                                <option value="2">2 - Always split to the left / top</option>
                             </select>
                         </div>
                     </div>
-                    <h4>Master Layout</h4>
-                     <div class="form-group">
-                        <label for="master-new_status">New Window Status:</label>
-                         <div class="form-input-wrapper">
-                             <select id="master-new_status" data-config-key="master.new_status">
-                                 <option value="master">Master</option>
-                                 <option value="slave">Slave</option>
-                             </select>
-                             <span>Where new windows appear in the master layout.</span>
-                         </div>
-                    </div>
-                </div>
-
-                 <div id="form-misc" class="settings-form">
-                    <h3>Miscellaneous Settings</h3>
-                     <div class="form-group">
-                        <label for="misc-force_default_wallpaper">Force Wallpaper:</label>
-                         <div class="form-input-wrapper">
-                             <input type="number" id="misc-force_default_wallpaper" data-config-key="misc.force_default_wallpaper">
-                             <span>Force a specific default wallpaper (-1 = default, 0 = first, 1 = second, etc.).</span>
-                         </div>
+                    <div class="form-group">
+                        <label for="dwindle-smart_split">Smart Split</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="dwindle-smart_split" data-config-key="dwindle.smart_split">
+                            <label for="dwindle-smart_split">Split the longer side of the container.</label>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="misc-disable_hyprland_logo">Disable Logo:</label>
-                         <div class="form-input-wrapper" style="flex-direction: row; align-items: center;">
-                            <input type="checkbox" id="misc-disable_hyprland_logo" data-config-key="misc.disable_hyprland_logo">
-                            <label for="misc-disable_hyprland_logo">Disable the random Hyprland logo background.</label>
-                         </div>
+                        <label for="dwindle-smart_resizing">Smart Resizing</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="dwindle-smart_resizing" data-config-key="dwindle.smart_resizing">
+                            <label for="dwindle-smart_resizing">Resize the side that is "facing" the cursor instead of
+                                always the bottom-right.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dwindle-use_active_for_splits">Active for Splits</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="dwindle-use_active_for_splits"
+                                data-config-key="dwindle.use_active_for_splits">
+                            <label for="dwindle-use_active_for_splits">Use the active window instead of the mouse for
+                                splits.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dwindle-default_split_ratio">Split Ratio</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="dwindle-default_split_ratio"
+                                data-config-key="dwindle.default_split_ratio" min="0.1" max="1.9" step="0.1">
+                            <span>Default split ratio (0.1 - 1.9). 1.0 = equal split.</span>
+                        </div>
+                    </div>
+
+                    <h4>Master Layout</h4>
+                    <div class="form-group">
+                        <label for="master-new_status">New Window Status</label>
+                        <div class="form-input-wrapper">
+                            <select id="master-new_status" data-config-key="master.new_status">
+                                <option value="master">Master</option>
+                                <option value="slave">Slave</option>
+                                <option value="inherit">Inherit</option>
+                            </select>
+                            <span>Where new windows go in the master layout.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="master-new_on_top">New on Top</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="master-new_on_top" data-config-key="master.new_on_top">
+                            <label for="master-new_on_top">New slave windows go to the top of the stack.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="master-mfact">Master Factor</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="master-mfact" data-config-key="master.mfact" min="0.05" max="0.95"
+                                step="0.05">
+                            <span>Size of the master area (0.05 - 0.95). Default: 0.55</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="master-orientation">Orientation</label>
+                        <div class="form-input-wrapper">
+                            <select id="master-orientation" data-config-key="master.orientation">
+                                <option value="left">Left</option>
+                                <option value="right">Right</option>
+                                <option value="top">Top</option>
+                                <option value="bottom">Bottom</option>
+                                <option value="center">Center</option>
+                            </select>
+                            <span>Which side the master area is on.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="master-always_center_master">Always Center</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="master-always_center_master"
+                                data-config-key="master.always_center_master">
+                            <label for="master-always_center_master">Always center master window when it's alone on a
+                                workspace.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="master-allow_small_split">Allow Small Split</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="master-allow_small_split"
+                                data-config-key="master.allow_small_split">
+                            <label for="master-allow_small_split">Allow making the master very small.</label>
+                        </div>
                     </div>
                 </div>
 
-            </div>
+                <!-- KEYBINDS -->
+                <div id="form-keybinds" class="settings-form">
+                    <h3>Keybinds</h3>
+                    <p class="form-desc">Define keyboard shortcuts. <code>bind</code> = normal, <code>bindm</code> =
+                        mouse, <code>bindl</code> = locked screen, <code>binde</code> = repeat while held,
+                        <code>bindel</code> = repeat + locked, <code>bindr</code> = on release.
+                    </p>
+                    <div id="keybind-list"></div>
+                    <button type="button" id="add-keybind-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Add Keybind
+                    </button>
+                </div>
+
+                <!-- WINDOW RULES -->
+                <div id="form-windowrules" class="settings-form">
+                    <h3>Window Rules v2</h3>
+                    <p class="form-desc">Rules applied to windows matching conditions. Uses <code>windowrulev2</code>
+                        format: <code>rule, matcher1:pattern, matcher2:pattern...</code></p>
+                    <div id="windowrule-list"></div>
+                    <button type="button" id="add-windowrule-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Add Window Rule
+                    </button>
+                </div>
+
+                <!-- WORKSPACE RULES -->
+                <div id="form-workspacerules" class="settings-form">
+                    <h3>Workspace Rules</h3>
+                    <p class="form-desc">Bind workspaces to monitors, set default properties, or make them persistent.
+                        Format: <code>workspace = name, rule1:value, rule2:value</code></p>
+                    <div id="workspacerule-list"></div>
+                    <button type="button" id="add-workspacerule-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Add Workspace Rule
+                    </button>
+                </div>
+
+                <!-- GESTURES -->
+                <div id="form-gestures" class="settings-form">
+                    <h3>Gestures</h3>
+                    <p class="form-desc">Touchpad gesture configuration for workspace switching and other actions.</p>
+                    <div class="form-group">
+                        <label for="gestures-workspace_swipe">Workspace Swipe</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="gestures-workspace_swipe"
+                                data-config-key="gestures.workspace_swipe">
+                            <label for="gestures-workspace_swipe">Enable 3-finger touchpad swipe to switch
+                                workspaces.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gestures-workspace_swipe_fingers">Swipe Fingers</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="gestures-workspace_swipe_fingers"
+                                data-config-key="gestures.workspace_swipe_fingers" min="3" max="5">
+                            <span>Number of fingers for workspace swipe gesture. Default: 3.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gestures-workspace_swipe_min_fingers">Min Fingers</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="gestures-workspace_swipe_min_fingers"
+                                data-config-key="gestures.workspace_swipe_min_fingers">
+                            <label for="gestures-workspace_swipe_min_fingers">If enabled, require at least
+                                workspace_swipe_fingers fingers (not exactly).</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gestures-workspace_swipe_distance">Swipe Distance</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="gestures-workspace_swipe_distance"
+                                data-config-key="gestures.workspace_swipe_distance" min="100">
+                            <span>Swipe distance in pixels to trigger workspace switch. Default: 300.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gestures-workspace_swipe_invert">Invert Swipe</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="gestures-workspace_swipe_invert"
+                                data-config-key="gestures.workspace_swipe_invert">
+                            <label for="gestures-workspace_swipe_invert">Invert the swipe direction.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gestures-workspace_swipe_touch">Touch Swipe</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="gestures-workspace_swipe_touch"
+                                data-config-key="gestures.workspace_swipe_touch">
+                            <label for="gestures-workspace_swipe_touch">Enable touchscreen gesture for workspace
+                                swipe.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gestures-workspace_swipe_use_r">Use R-direction</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="gestures-workspace_swipe_use_r"
+                                data-config-key="gestures.workspace_swipe_use_r">
+                            <label for="gestures-workspace_swipe_use_r">When on last workspace, swipe to open a new one
+                                (r-ref workspaces).</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gestures-workspace_swipe_cancel_ratio">Cancel Ratio</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="gestures-workspace_swipe_cancel_ratio"
+                                data-config-key="gestures.workspace_swipe_cancel_ratio" min="0" max="1" step="0.05">
+                            <span>How far the swipe must go before it can't be cancelled (0.0 - 1.0). Default:
+                                0.5</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gestures-workspace_swipe_speed_with_velocity">Speed with Velocity</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="gestures-workspace_swipe_speed_with_velocity"
+                                data-config-key="gestures.workspace_swipe_speed_with_velocity">
+                            <label for="gestures-workspace_swipe_speed_with_velocity">Scale speed based on swipe
+                                velocity.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AUTOSTART -->
+                <div id="form-autostart" class="settings-form">
+                    <h3>Autostart</h3>
+                    <p class="form-desc">Programs launched once at startup via <code>exec-once</code>. Typical entries:
+                        bar, notification daemon, wallpaper setter, auth agent.</p>
+                    <div id="autostart-list"></div>
+                    <button type="button" id="add-autostart-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Add Entry
+                    </button>
+                </div>
+
+                <!-- ENVIRONMENT VARIABLES -->
+                <div id="form-env" class="settings-form">
+                    <h3>Environment Variables</h3>
+                    <p class="form-desc">Set via <code>env = NAME,value</code>. Common ones include cursor size,
+                        Wayland/Qt/GTK theming, and NVIDIA-specific variables.</p>
+                    <div class="env-presets">
+                        <span class="presets-label">Quick add:</span>
+                        <button type="button" class="preset-btn" data-env-name="XCURSOR_SIZE" data-env-value="24">Cursor
+                            Size</button>
+                        <button type="button" class="preset-btn" data-env-name="HYPRCURSOR_SIZE"
+                            data-env-value="24">Hyprcursor</button>
+                        <button type="button" class="preset-btn" data-env-name="XCURSOR_THEME" data-env-value="">Cursor
+                            Theme</button>
+                        <button type="button" class="preset-btn" data-env-name="QT_QPA_PLATFORM"
+                            data-env-value="wayland">Qt Wayland</button>
+                        <button type="button" class="preset-btn" data-env-name="QT_WAYLAND_DISABLE_WINDOWDECORATION"
+                            data-env-value="1">Qt No Deco</button>
+                        <button type="button" class="preset-btn" data-env-name="GDK_BACKEND"
+                            data-env-value="wayland,x11,*">GTK Backend</button>
+                        <button type="button" class="preset-btn" data-env-name="SDL_VIDEODRIVER"
+                            data-env-value="wayland">SDL Wayland</button>
+                        <button type="button" class="preset-btn" data-env-name="CLUTTER_BACKEND"
+                            data-env-value="wayland">Clutter</button>
+                        <button type="button" class="preset-btn" data-env-name="XDG_SESSION_TYPE"
+                            data-env-value="wayland">XDG Session</button>
+                        <button type="button" class="preset-btn nvidia" data-env-name="LIBVA_DRIVER_NAME"
+                            data-env-value="nvidia">NVIDIA libva</button>
+                        <button type="button" class="preset-btn nvidia" data-env-name="__GLX_VENDOR_LIBRARY_NAME"
+                            data-env-value="nvidia">NVIDIA GLX</button>
+                        <button type="button" class="preset-btn nvidia" data-env-name="NVD_BACKEND"
+                            data-env-value="direct">NVIDIA NVD</button>
+                    </div>
+                    <div id="env-list"></div>
+                    <button type="button" id="add-env-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Add Variable
+                    </button>
+                </div>
+
+                <!-- VARIABLES -->
+                <div id="form-variables" class="settings-form">
+                    <h3>Variables</h3>
+                    <p class="form-desc">Custom <code>$variables</code> for reuse throughout your config (e.g.
+                        <code>$mainMod</code>, <code>$terminal</code>). Referenced with <code>$name</code> syntax.
+                    </p>
+                    <div id="variable-list"></div>
+                    <button type="button" id="add-variable-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Add Variable
+                    </button>
+                </div>
+
+                <!-- MISC -->
+                <div id="form-misc" class="settings-form">
+                    <h3>Miscellaneous</h3>
+                    <p class="form-desc">Various settings that don't fit elsewhere.</p>
+
+                    <h4>Display</h4>
+                    <div class="form-group">
+                        <label for="misc-disable_hyprland_logo">Disable Logo</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-disable_hyprland_logo"
+                                data-config-key="misc.disable_hyprland_logo">
+                            <label for="misc-disable_hyprland_logo">Hide the random Hyprland logo on empty workspace
+                                background.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-disable_splash_rendering">Disable Splash</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-disable_splash_rendering"
+                                data-config-key="misc.disable_splash_rendering">
+                            <label for="misc-disable_splash_rendering">Disable the splash text under the Hyprland
+                                logo.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-force_default_wallpaper">Force Wallpaper</label>
+                        <div class="form-input-wrapper">
+                            <input type="number" id="misc-force_default_wallpaper"
+                                data-config-key="misc.force_default_wallpaper">
+                            <span>Force a specific default wallpaper variant. -1 = random, 0/1/2 = specific ones.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-col_splash">Splash Color</label>
+                        <div class="form-input-wrapper">
+                            <div class="color-row">
+                                <input type="color" id="misc-col_splash" data-config-key="misc.col.splash">
+                                <input type="text" class="color-text-display" data-config-key="misc.col.splash"
+                                    placeholder="rgba(ffffff55)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Window Behavior</h4>
+                    <div class="form-group">
+                        <label for="misc-focus_on_activate">Focus on Activate</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-focus_on_activate" data-config-key="misc.focus_on_activate">
+                            <label for="misc-focus_on_activate">Focus windows when they request activation (can be
+                                annoying).</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-new_window_takes_over_fullscreen">Take Over Fullscreen</label>
+                        <div class="form-input-wrapper">
+                            <select id="misc-new_window_takes_over_fullscreen"
+                                data-config-key="misc.new_window_takes_over_fullscreen">
+                                <option value="0">0 - No (stay fullscreen, window opens behind)</option>
+                                <option value="1">1 - Unfullscreen current window</option>
+                                <option value="2">2 - Kill the fullscreen window</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-initial_workspace_tracking">Initial Workspace</label>
+                        <div class="form-input-wrapper">
+                            <select id="misc-initial_workspace_tracking"
+                                data-config-key="misc.initial_workspace_tracking">
+                                <option value="0">0 - Don't track</option>
+                                <option value="1">1 - Track single app start</option>
+                                <option value="2">2 - Track all</option>
+                            </select>
+                            <span>Track what workspace apps launch on and restore them there.</span>
+                        </div>
+                    </div>
+
+                    <h4>System</h4>
+                    <div class="form-group">
+                        <label for="misc-vfr">VFR</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-vfr" data-config-key="misc.vfr">
+                            <label for="misc-vfr">Variable frame rate — lower CPU/GPU usage when idle. Recommended
+                                on.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-vrr">VRR</label>
+                        <div class="form-input-wrapper">
+                            <select id="misc-vrr" data-config-key="misc.vrr">
+                                <option value="0">0 - Disabled</option>
+                                <option value="1">1 - Always enabled</option>
+                                <option value="2">2 - Fullscreen only</option>
+                                <option value="3">3 - Fullscreen or games only</option>
+                            </select>
+                            <span>Variable refresh rate (FreeSync/G-Sync). Monitor must support it.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-enable_swallow">Window Swallow</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-enable_swallow" data-config-key="misc.enable_swallow">
+                            <label for="misc-enable_swallow">Enable window swallowing (terminal hides when launching GUI
+                                app).</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-swallow_regex">Swallow Regex</label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="misc-swallow_regex" data-config-key="misc.swallow_regex"
+                                placeholder="^(kitty|foot|alacritty)$">
+                            <span>Regex matching terminal class names that can swallow windows.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-swallow_exception_regex">Swallow Exception</label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="misc-swallow_exception_regex"
+                                data-config-key="misc.swallow_exception_regex" placeholder="(kitty|wezterm)">
+                            <span>Regex for window titles that prevent swallowing.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-animate_manual_resizes">Animate Resizes</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-animate_manual_resizes"
+                                data-config-key="misc.animate_manual_resizes">
+                            <label for="misc-animate_manual_resizes">Animate manual window resizes (can be
+                                laggy).</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-animate_mouse_windowdragging">Animate Drag</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-animate_mouse_windowdragging"
+                                data-config-key="misc.animate_mouse_windowdragging">
+                            <label for="misc-animate_mouse_windowdragging">Animate window dragging with mouse.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-render_ahead_of_time">Render Ahead</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-render_ahead_of_time"
+                                data-config-key="misc.render_ahead_of_time">
+                            <label for="misc-render_ahead_of_time">Render a frame slightly ahead of time. Can reduce
+                                latency.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-disable_autoreload">Disable Autoreload</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-disable_autoreload"
+                                data-config-key="misc.disable_autoreload">
+                            <label for="misc-disable_autoreload">Don't auto-reload config on file change. Manual reload
+                                only via <code>hyprctl reload</code>.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-layers_hog_keyboard_focus">Layers Hog Focus</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-layers_hog_keyboard_focus"
+                                data-config-key="misc.layers_hog_keyboard_focus">
+                            <label for="misc-layers_hog_keyboard_focus">If a layer requests keyboard focus (e.g. rofi),
+                                give it. Recommended on.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-close_special_on_empty">Close Special Empty</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-close_special_on_empty"
+                                data-config-key="misc.close_special_on_empty">
+                            <label for="misc-close_special_on_empty">Close the special workspace if the last window
+                                inside is closed.</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-middle_click_paste">Middle Click Paste</label>
+                        <div class="form-input-wrapper checkbox-row">
+                            <input type="checkbox" id="misc-middle_click_paste"
+                                data-config-key="misc.middle_click_paste">
+                            <label for="misc-middle_click_paste">Enable X11 middle-click paste.</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end settings-forms -->
         </main>
     </div>
 
     <section id="output-section">
-        <h2>Generated hyprland.conf (Review the configuration before use.)</h2>
+        <div class="output-header">
+            <h2>Generated Config</h2>
+            <div class="output-meta">
+                <span id="line-count" class="meta-badge">0 lines</span>
+                <span id="section-count" class="meta-badge">0 sections</span>
+            </div>
+        </div>
+        <p class="output-warn">⚠ Review before use. Some defaults may differ from your Hyprland version.</p>
         <pre><code id="generated-config"># Config will appear here...</code></pre>
-        <button id="copy-button">Copy to Clipboard</button>
-        <button id="download-button">Download .conf File</button>
+        <div class="output-actions">
+            <button id="copy-button">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                Copy to Clipboard
+            </button>
+            <button id="download-button">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Download hyprland.conf
+            </button>
+        </div>
     </section>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast hidden"></div>
+
     <script src="script.js" defer></script>
 </body>
+
 </html>
